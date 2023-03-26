@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { EstudiantesComponent } from './estudiantes.component';
 import { TablaEstudiantesComponent } from './tabla-estudiantes/tabla-estudiantes.component';
 
-const routes: Routes = [{ 
+const routes: Routes = [
+  { 
   path: '', component: EstudiantesComponent
  },
  {

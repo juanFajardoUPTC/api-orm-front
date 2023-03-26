@@ -14,7 +14,14 @@ export class TablaEstudiantesComponent implements OnInit {
 
   ngOnInit(): void {
     
-this.res = this.servicioEstudiantes.postRequest({})
+this.res = this.servicioEstudiantes.getRequest().subscribe(data => {
+  console.log('Data',data);
+  
+  this.res = JSON.stringify(data);
+
+}, error => {
+  console.log('ERRORRRRR',error);
+});
     
   }
 

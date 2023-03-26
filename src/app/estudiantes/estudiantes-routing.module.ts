@@ -5,7 +5,8 @@ import { TablaEstudiantesComponent } from './tabla-estudiantes/tabla-estudiantes
 import { AgregarComponent } from './agregar/agregar.component'; 
 
 
-const routes: Routes = [{ 
+const routes: Routes = [
+  { 
   path: '', component: EstudiantesComponent
  },
  {

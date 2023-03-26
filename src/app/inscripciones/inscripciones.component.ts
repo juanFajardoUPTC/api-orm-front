@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+
 
 @Component({
   selector: 'app-inscripciones',
@@ -6,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./inscripciones.component.scss']
 })
 export class InscripcionesComponent implements OnInit {
+
+  name = new FormControl('')
 
   constructor() { }
 

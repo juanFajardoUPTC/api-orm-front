@@ -1,13 +1,13 @@
 {
-    "/estudiantes": {
+    "/estudiantes/*": {
     "target": "http://localhost:3000",
     "secure": false
     },
-    "/materias": {
+    "/materias/*": {
         "target": "http://localhost:3000",
         "secure": false
     },
-     "/inscripciones": {
+     "/inscripciones/*": {
         "target": "http://localhost:3000",
         "secure": false
     }

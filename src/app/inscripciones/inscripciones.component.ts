@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./inscripciones.component.scss']
 })
 export class InscripcionesComponent implements OnInit {
+  estudiante: any;
+  selectedSubject: any;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.selectedSubject = null;
+  }
+
+  onSubjectSelected(materia: any) {
+    this.selectedSubject = materia;
   }
 
 }

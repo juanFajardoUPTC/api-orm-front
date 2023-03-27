@@ -13,29 +13,56 @@ export class TablaEstudiantesComponent implements OnInit {
   itemsPerPage = 5
   totalPaginas = 1
 
+  ordenamiento ='Ascendente'
+  columna = 'codigo'
+  busqueda = ''
+
 
 
   constructor(private servicioEstudiantes: ServicioEstudiantesService) { }
 
   ngOnInit(): void {
     
-this.res = this.servicioEstudiantes.getRequest().subscribe(data => {
+this.servicioEstudiantes.getRequest(this.columna,this.ordenamiento,this.busqueda).subscribe(data => {
   console.log('Data',data);
-  
   this.res = data['estudiantes']
-
   this.contarPaginas()
 
-  
-
 }, error => {
-  console.log('ERRORRRRR',error);
+  console.log('ERROR',error);
 });
     
   }
-  cambiarPaginacion(event:any){
+  cambiarPaginacion(key:string,event:any){
+
+    if(key == 'mostrar')
     this.itemsPerPage = Number(event)
+    
+    if(key == 'columna')
+    this.columna = event
+    
+    if(key == 'ordenamiento')
+    this.ordenamiento = event
+    
+    if(key == 'busqueda')
+    this.busqueda = event
+    
+    
+
+      this.servicioEstudiantes.getRequest(this.columna,this.ordenamiento,this.busqueda).subscribe(data => {
+        console.log('Data',data);
+        this.res = data['estudiantes']
+        this.contarPaginas()
+
+      }, error => {
+        console.log('ERROR',error);
+      });
+    
     this.contarPaginas()
+  }
+
+  llenarLista(){
+
   }
   contarPaginas(){
     this.totalPaginas = 0

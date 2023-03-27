@@ -1,0 +1,33 @@
+<div clas="container">
+    <h1>Materia</h1>
+    <form (ngSubmit)="onSubmit">
+        <label for="codigo"> Codigo:</label>
+        <input type="number" name="codigo" class="form-control" id="codigo" [(ngModel)]="model.codigo" required
+            maxlength="45" #codigo="ngModel" [ngClass]="{ 'invalid-field': codigo.invalid && codigo.touched }">
+        <div *ngIf="codigo.invalid && codigo.touched" class="error">**Código es requerido**</div>
+
+
+        <label for="nombre"> Nombre:</label>
+        <input type="text" name="nombre" class="form-control" id="nombre" [(ngModel)]="model.nombre" required
+            #nombre="ngModel" [ngClass]="{ 'invalid-field': nombre.invalid && nombre.touched }" />
+        <div *ngIf="nombre.invalid && nombre.touched" class="error">**Nombre es requerido**</div>
+
+        <label for="cupos"> Numero de cupos:</label>
+        <input type="number" name="cupos" class="form-control" id="cupos" [(ngModel)]="model.cupos" required
+            maxlength="45" #cupos="ngModel" >
+
+        <label for="estado"> Estado:</label>
+        <select name="estado" class="form-control" id="estado" [(ngModel)]="model.estado" maxlength="1">
+            <option value="A">Materia Activa</option>
+            <option value="I">Materia Inactiva</option>
+        </select>
+
+
+        <button type="submit" class="btn btn-primary" (click)="addSubject()">
+            Enviar
+        </button>
+
+
+    </form>
+
+</div>

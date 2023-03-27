@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import { EstudiantesRoutingModule } from './estudiantes-routing.module';
 import { EstudiantesComponent } from './estudiantes.component';
@@ -22,6 +23,8 @@ import { ReactiveFormsModule} from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
   
+    NgxPaginationModule
+
   ]
 })
 export class EstudiantesModule { }

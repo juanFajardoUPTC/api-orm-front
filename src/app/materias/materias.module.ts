@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { MateriasRoutingModule } from './materias-routing.module';
 import { MateriasComponent } from './materias.component';
+import { AgregarMateriaComponent } from './agregar-materia/agregar-materia.component';
 
 
 @NgModule({
   declarations: [
-    MateriasComponent
+    MateriasComponent,
+    AgregarMateriaComponent
   ],
   imports: [
     CommonModule,

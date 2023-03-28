@@ -8,12 +8,12 @@ import { ServicioEstudiantesService } from 'src/app/services/servicio-estudiante
 })
 export class TablaEstudiantesComponent implements OnInit {
 
-  res:any
+  res:any = []
   paginaActual = 1
   itemsPerPage = 5
   totalPaginas = 1
 
-  ordenamiento ='Ascendente'
+  ordenamiento ='asc'
   columna = 'codigo'
   busqueda = ''
 
@@ -25,7 +25,7 @@ export class TablaEstudiantesComponent implements OnInit {
     
 this.servicioEstudiantes.getRequest(this.columna,this.ordenamiento,this.busqueda).subscribe(data => {
   console.log('Data',data);
-  this.res = data['estudiantes']
+  this.res = data
   this.contarPaginas()
 
 }, error => {
@@ -41,8 +41,12 @@ this.servicioEstudiantes.getRequest(this.columna,this.ordenamiento,this.busqueda
     if(key == 'columna')
     this.columna = event
     
-    if(key == 'ordenamiento')
-    this.ordenamiento = event
+    if(key == 'ordenamiento'){
+      this.ordenamiento = event
+      if(this.ordenamiento == 'Ascendente')
+      this.ordenamiento = 'asc'
+
+    }
     
     if(key == 'busqueda')
     this.busqueda = event
@@ -51,7 +55,7 @@ this.servicioEstudiantes.getRequest(this.columna,this.ordenamiento,this.busqueda
 
       this.servicioEstudiantes.getRequest(this.columna,this.ordenamiento,this.busqueda).subscribe(data => {
         console.log('Data',data);
-        this.res = data['estudiantes']
+        this.res = data
         this.contarPaginas()
 
       }, error => {

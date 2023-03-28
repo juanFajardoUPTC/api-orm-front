@@ -27,7 +27,6 @@ this.servicioEstudiantes.getRequest(this.columna,this.ordenamiento,this.busqueda
   console.log('Data',data);
   this.res = data['estudiantes']
   this.contarPaginas()
-
 }, error => {
   console.log('ERROR',error);
 });

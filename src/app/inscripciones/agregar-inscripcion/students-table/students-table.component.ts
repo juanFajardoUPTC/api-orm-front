@@ -8,14 +8,8 @@ import { ServicioEstudiantesService } from 'src/app/services/servicio-estudiante
 })
 
 export class StudentsTableComponent implements OnInit {
-
-
-
   constructor(private servicioEstudiantes: ServicioEstudiantesService) { }
-
   @Output() onSelect = new EventEmitter<any>();
-
-  
   res:any
 /*
   students = [
@@ -26,9 +20,9 @@ export class StudentsTableComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.servicioEstudiantes.getRequest('','','').subscribe(data => {
+    this.servicioEstudiantes.getRequest().subscribe(data => {
       console.log('Data',data);
-      this.res = data['estudiantes']
+      this.res = data
     }, error => {
       console.log('ERROR Al Obtener Estudiantes',error);
     });

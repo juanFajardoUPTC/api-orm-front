@@ -24,7 +24,7 @@ export class SubjectsTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.servicioMaterias.getRequest().subscribe(data => {
-      this.res = data['materias']
+      this.res = data
     },error => {
       console.log('ERROR Al Obtener Materias',error);
     });

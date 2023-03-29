@@ -1,50 +1,60 @@
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="assets\img\inscripciones.jpg" alt="Card image cap">
-    <div class="card-body">
-        <h5 class="card-title">Mostrar Inscripciones</h5>
-        <p class="card-text">En este lugar ver las inscripciones</p>
-    </div>
-    <div class="card-body">
-        <a routerLink="/inscripciones/tabla-inscripciones" class="card-link">Entrar</a>
-    </div>
-</div>
-
-<main>
+<body>
   <div class="container">
-    <h3>Tabla de Estudiantes</h3>
-    <app-students-table (onSelect)="estudiante = $event"></app-students-table>
+    <h1 class="title text-center py-4">INSCRIPCIONES</h1>
+    <div class=" row">
+      <div class="col-md-6 d-flex justify-countent-center">
+        <div class="card m-2 cb1 text-center">
+          <img class="card-img-top" src="assets\img\inscri-materia-mini.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Agregar Inscripcion</h5>
+            <p class="card-text">lugar para agregar incripción</p>
+          </div>
+          <div class="card-body">
+            <a href="#" routerLink="/inscripciones/agregar-inscripcion" class="btn btn-outline-light">Ingresar</a>
+          </div>
+        </div>
 
-    <div *ngIf="estudiante" class="selected-student">
-      <h4>Estudiante seleccionado:</h4>
-      <div class="student-info">
-        <span>Código: {{estudiante.codigo}}</span>
-        <span>Nombre: {{estudiante.nombre}}</span>
-        <span>{{estudiante.apellido}}</span>
-        <span>/{{estudiante.tipoDocumento}}</span>
-        <span>/{{estudiante.numeroDocumento}}</span>
-        <span>/{{estudiante.genero}}</span>
       </div>
-    </div>
-    <h3>Tabla de Materias</h3>
-    <app-subjects-table (onSelectSubject)="onSubjectSelected($event)"></app-subjects-table>
-    
-    <div *ngIf="selectedSubject" class="selected-subject">
-      <h4>Asignatura seleccionada:</h4>
-      <div class="subject-info">
-        <span>Código: {{selectedSubject.codigo}}</span>
-        <span> {{selectedSubject.nombre}}</span>
-        <span> /Cupos: {{selectedSubject.cupo}}</span>
-        <span>/{{selectedSubject.estado}}</span>
+      <div class="col-md-6 d-flex justify-countent-center">
+        <div class="card m-2 cb1 text-center">
+          <img class="card-img-top" src="assets\img\mostrar-incrip-mini.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">MOSTRAR INSCRIPCIONES</h5>
+            <p class="card-text">lugar para vizualizar incripciones</p>
+          </div>
+          <div class="card-body">
+            <a href="#" routerLink="/inscripciones/tabla-inscripciones" class="btn btn-outline-light">Ingresar</a>
+          </div>
+        </div>
+
       </div>
+      
     </div>
-    <button type="button" class="btn btn-primary">Agregar</button>
   </div>
-</main>
+      <router-outlet></router-outlet>
+</body>
 
 
-<label for="firstName">Name: </label>
-<input id="name" type="text" [formControl]="name">
-<p>Value: {{ name.value }}</p>
+<!---
+
+<body>
+  <div class="container">
+    <h1 class="title text-center py-4">ESTUDIANTES</h1>
+    <div class=" row">
+      <div class="col-md-4 d-flex justify-countent-center">
 
 
+      </div>
+      <div class="col-md-4 d-flex justify-countent-center">
 
+
+      </div>
+      <div class="col-md-4 d-flex justify-countent-center">
+
+
+      </div>
+    </div>
+  </div>
+      <router-outlet></router-outlet>
+</body>
+-->

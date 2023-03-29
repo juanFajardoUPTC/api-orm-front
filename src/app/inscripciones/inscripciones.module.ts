@@ -11,6 +11,9 @@ import { TablaEstudiantesComponent } from './students-table/students-table.compo
 import { TablaMateriasComponent} from './subjects-table/subjects-table.component';
 
 
+import { AgregarInscripcionComponent } from './agregar-inscripcion/agregar-inscripcion.component';
+import { StudentsTableComponent } from './agregar-inscripcion/students-table/students-table.component';
+import { SubjectsTableComponent } from './agregar-inscripcion/subjects-table/subjects-table.component';
 
 
 @NgModule({
@@ -21,7 +24,10 @@ import { TablaMateriasComponent} from './subjects-table/subjects-table.component
     TablaMateriasComponent,
 
 
-    TablaInscripcionesComponent
+    TablaInscripcionesComponent,
+    AgregarInscripcionComponent,
+    StudentsTableComponent,
+    SubjectsTableComponent
   ],
   imports: [
     CommonModule,

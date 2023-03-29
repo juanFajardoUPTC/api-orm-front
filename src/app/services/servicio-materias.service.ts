@@ -10,7 +10,7 @@ export class ServicioMateriasService {
 
   constructor(private http: HttpClient) { }
 
-  public getRequest(columna:string , ordenamiento:string ,busqueda:string): Observable<any>{
+  public getRequest(columna = 'codigo' , ordenamiento = 'asc' ,busqueda = ''): Observable<any>{
     let queryParams = new HttpParams();
     queryParams = queryParams.append("columna",columna);
     queryParams = queryParams.append("ordenamiento",ordenamiento);

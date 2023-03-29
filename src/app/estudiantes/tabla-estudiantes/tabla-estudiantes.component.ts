@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicioEstudiantesService } from 'src/app/services/servicio-estudiantes.service';
 import { Router } from '@angular/router';
+import { Estudiante } from '../estudiante.model';
 
 @Component({
   selector: 'app-tabla-estudiantes',
@@ -17,8 +18,9 @@ export class TablaEstudiantesComponent implements OnInit {
   ordenamiento = 'asc'
   columna = 'codigo'
   busqueda = ''
+  model = new Estudiante(2023, "", "", "", "", "", "");
 
-  students: any[] = [];
+  // students: any[] = [];
 
 
 
@@ -102,9 +104,12 @@ export class TablaEstudiantesComponent implements OnInit {
   }
 
   selectStudent(index: number) {
-    const selectedStudent = this.students[index];
+    const selectedStudent = JSON.stringify(this.res[index]);
+
     console.log('Estudiante', selectedStudent);
-    window.sessionStorage.setItem('selectedStudent', JSON.stringify(selectedStudent));
+    const sel = window.sessionStorage.setItem('estudiante', selectedStudent)
+    console.log('sel',sel)
+    // window.sessionStorage.setItem('selectedStudent', JSON.stringify(selectedStudent));
 
   }
 

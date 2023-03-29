@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, NgForm } from '@angular/forms';
 import { Estudiante } from '../estudiante.model';
+import { FormsModule, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-modificar-estudiante',
@@ -9,35 +10,51 @@ import { Estudiante } from '../estudiante.model';
 })
 export class ModificarEstudianteComponent implements OnInit {
 
-  @ViewChild('studentForm') studentForm!: NgForm;
-  res:any
+
+  res: any
   model = new Estudiante(2023, "", "", "", "", "", "");
-  data!:string;
+  data!: string;
+  form: FormGroup;
 
-
-  getData() : void{
-    // const data = window.sessionStorage.getItem('selectedStudent');
-    // console.log(data);
-  }
-
-  constructor() { 
-
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      codigo: [0],
+      nombre: [''],
+      apellido: [''],
+      tipo_documento: [''],
+      numero_documento: [''],
+      estado: [''],
+      genero: ['']
+    });
   }
 
   ngOnInit(): void {
-    const selectedStudentString = window.sessionStorage.getItem('selectedStudent');
-    console.log('Estudiante',selectedStudentString);
-    if (selectedStudentString) {
-      const selectedStudent = JSON.parse(selectedStudentString);
-      this.studentForm.setValue({
-        name: selectedStudent.name,
-        age: selectedStudent.age
+    const estudianteJSON = window.sessionStorage.getItem('estudiante')
+
+    if (estudianteJSON !== null) {
+
+      const estudiante = JSON.parse(estudianteJSON);
+      this.form.patchValue({
+        codigo: parseInt(estudiante.codigo),
+        nombre: estudiante.nombre,
+        apellido: estudiante.apellido,
+        tipo_documento: estudiante.tipo_documento,
+        numero_documento: estudiante.numero_documento,
+        estado: estudiante.estado,
+        genero: estudiante.genero,
       });
+
+      // Aquí puedes acceder a las propiedades del objeto estudiante
+    } else {
+      // Aquí puedes manejar el caso en que la clave 'estudiante' no existe en el almacenamiento de la sesión
     }
+
+
+
   }
 
 
-  onSubmit(estudianteForm: NgForm){
+  onSubmit(estudianteForm: NgForm) {
     estudianteForm.control.markAllAsTouched();
 
   }

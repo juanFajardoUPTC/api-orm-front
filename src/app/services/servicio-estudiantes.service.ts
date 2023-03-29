@@ -24,4 +24,13 @@ export class ServicioEstudiantesService {
     })
     return this.http.post('/estudiantes/agregar',body,{'headers':headers}); 
   }
+
+  public putRequest(codigo:number ): Observable<any>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("codigo",codigo);
+    return this.http.get('/estudiantes',{params:queryParams}); 
+  }
+
+
 }
+

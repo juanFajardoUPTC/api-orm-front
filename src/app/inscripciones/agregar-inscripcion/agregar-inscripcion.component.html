@@ -1,0 +1,39 @@
+<body>
+  <main>
+    <div class="container">
+      <h3>Tabla de Estudiantes</h3>
+      <app-students-table (onSelect)="estudiante = $event"></app-students-table>
+
+      <div *ngIf="estudiante" class="selected-student">
+        <h4>Estudiante seleccionado:</h4>
+        <div class="student-info">
+          <span>Código: {{estudiante.codigo}}</span>
+          <span>Nombre: {{estudiante.nombre}}</span>
+          <span>{{estudiante.apellido}}</span>
+          <span>/{{estudiante.tipoDocumento}}</span>
+          <span>/{{estudiante.numeroDocumento}}</span>
+          <span>/{{estudiante.genero}}</span>
+        </div>
+      </div>
+      <h3>Tabla de Materias</h3>
+      <app-subjects-table (onSelectSubject)="onSubjectSelected($event)"></app-subjects-table>
+
+      <div *ngIf="selectedSubject" class="selected-subject">
+        <h4>Asignatura seleccionada:</h4>
+        <div class="subject-info">
+          <span>Código: {{selectedSubject.codigo}}</span>
+          <span> {{selectedSubject.nombre}}</span>
+          <span> /Cupos: {{selectedSubject.cupo}}</span>
+          <span>/{{selectedSubject.estado}}</span>
+        </div>
+      </div>
+      <div>
+        <label for="start">Fecha de Inscripción:</label>
+        <input type="date" id="start" name="trip-start" [value]="currentDate" min="2018-01-01" max=""
+          (change)="onDateSelected($event)">
+      </div>
+
+      <button type="button" class="btn btn-primary" (click)="onButtonClick()">Agregar</button>
+    </div>
+  </main>
+</body>

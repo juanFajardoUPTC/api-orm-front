@@ -8,12 +8,19 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./inscripciones.component.scss']
 })
 export class InscripcionesComponent implements OnInit {
+  estudiante: any;
+  selectedSubject: any;
 
   name = new FormControl('')
 
   constructor() { }
 
   ngOnInit(): void {
+    this.selectedSubject = null;
+  }
+
+  onSubjectSelected(materia: any) {
+    this.selectedSubject = materia;
   }
 
 }

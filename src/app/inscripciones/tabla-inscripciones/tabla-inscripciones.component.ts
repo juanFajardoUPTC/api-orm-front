@@ -14,7 +14,7 @@ export class TablaInscripcionesComponent implements OnInit {
   totalPaginas = 1
 
   ordenamiento ='asc'
-  columna = 'codigo'
+  columna = 'id_inscripcion'
   busqueda = ''
 
 

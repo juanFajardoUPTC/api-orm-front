@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+
 
 @Component({
   selector: 'app-inscripciones',
@@ -8,6 +10,8 @@ import { Component, OnInit } from '@angular/core';
 export class InscripcionesComponent implements OnInit {
   estudiante: any;
   selectedSubject: any;
+
+  name = new FormControl('')
 
   constructor() { }
 

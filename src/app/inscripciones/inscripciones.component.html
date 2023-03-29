@@ -1,14 +1,13 @@
-<!-- <main>
-  <div class="container">
-    <h3>Tabla de Estudiantes</h3>
-    <app-students-table></app-students-table>
-    como se mostraria el estudiante selecionado en uncambo resltado de color verde claro
-    <h3>Tabla de Materias</h3>
-    <app-subjects-table></app-subjects-table>
-  </div>
-</main>
-
--->
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="assets\img\inscripciones.jpg" alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">Mostrar Inscripciones</h5>
+        <p class="card-text">En este lugar ver las inscripciones</p>
+    </div>
+    <div class="card-body">
+        <a routerLink="/inscripciones/tabla-inscripciones" class="card-link">Entrar</a>
+    </div>
+</div>
 
 <main>
   <div class="container">
@@ -41,3 +40,11 @@
     <button type="button" class="btn btn-primary">Agregar</button>
   </div>
 </main>
+
+
+<label for="firstName">Name: </label>
+<input id="name" type="text" [formControl]="name">
+<p>Value: {{ name.value }}</p>
+
+
+

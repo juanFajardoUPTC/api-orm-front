@@ -1,0 +1,15 @@
+.contenido {
+    padding-left: 5rem;
+    padding-right: 5rem;
+}
+.pagination {
+    display:flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.rows {
+    display:flex;
+    flex-direction: row;
+    align-items: flex-start;
+}

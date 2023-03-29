@@ -9,12 +9,12 @@ import { Router} from '@angular/router';
 })
 export class TablaEstudiantesComponent implements OnInit {
 
-  res: any
+  res:any = []
   paginaActual = 1
   itemsPerPage = 5
   totalPaginas = 1
 
-  ordenamiento = 'Ascendente'
+  ordenamiento ='asc'
   columna = 'codigo'
   busqueda = ''
 
@@ -40,28 +40,28 @@ export class TablaEstudiantesComponent implements OnInit {
   }
   cambiarPaginacion(key: string, event: any) {
 
-    if (key == 'mostrar')
-      this.itemsPerPage = Number(event)
-
-    if (key == 'columna')
-      this.columna = event
-
-    if (key == 'ordenamiento')
+    if(key == 'mostrar')
+    this.itemsPerPage = Number(event)
+    
+    if(key == 'columna')
+    this.columna = event
+    
+    if(key == 'ordenamiento'){
       this.ordenamiento = event
+      if(this.ordenamiento == 'Ascendente')
+      this.ordenamiento = 'asc'
 
-    if (key == 'busqueda')
-      this.busqueda = event
+    }
+    
+    if(key == 'busqueda')
+    this.busqueda = event
+    
+    
 
-
-
-    this.servicioEstudiantes.getRequest(this.columna, this.ordenamiento, this.busqueda).subscribe(data => {
-      console.log('Data', data);
-      this.res = data['estudiantes']
-      this.contarPaginas()
-
-    }, error => {
-      console.log('ERROR', error);
-    });
+      this.servicioEstudiantes.getRequest(this.columna,this.ordenamiento,this.busqueda).subscribe(data => {
+        console.log('Data',data);
+        this.res = data
+        this.contarPaginas()
 
     this.contarPaginas()
   }

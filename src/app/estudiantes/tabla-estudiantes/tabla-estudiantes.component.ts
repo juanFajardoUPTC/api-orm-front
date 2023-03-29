@@ -28,6 +28,9 @@ export class TablaEstudiantesComponent implements OnInit {
 
     this.servicioEstudiantes.getRequest(this.columna, this.ordenamiento, this.busqueda).subscribe(data => {
       console.log('Data', data);
+      if(data['estudiantes'])
+      this.res = data['estudiantes']
+      else
       this.res = data
       this.contarPaginas()
 
@@ -58,6 +61,9 @@ export class TablaEstudiantesComponent implements OnInit {
 
     this.servicioEstudiantes.getRequest(this.columna, this.ordenamiento, this.busqueda).subscribe(data => {
       console.log('Data', data);
+      if(data['estudiantes'])
+      this.res = data['estudiantes']
+      else
       this.res = data
       this.contarPaginas()
 

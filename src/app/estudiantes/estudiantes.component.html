@@ -1,23 +1,52 @@
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="assets\img\estudiantes.jpg" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Mostrar Estudiantes</h5>
-      <p class="card-text">En este lugar podra ver toda la informacion relacionada con los estudiantes</p>
-    </div>
-    <div class="card-body">
-      <a routerLink="/estudiantes/tabla-estudiantes" class="card-link">Entrar</a>
+<body>
+  <div class="container">
+    <h1 class="title text-center py-4">ESTUDIANTES</h1>
+    <div class=" row">
+      <div class="col-md-4 d-flex justify-countent-center">
+        <div class="card m-2 cb1 text-center">
+          <img class="card-img-top" src="assets\img\estudiantes.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Mostrar Estudiantes</h5>
+            <p class="card-text">En este lugar podra visualizar la informacion de los estudiantes</p>
+          </div>
+          <div class="card-body">
+            <a href="#" routerLink="/estudiantes/tabla-estudiantes" class="btn btn-outline-light">Ingresar</a>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="col-md-4 d-flex justify-countent-center">
+        <div class="card m-2 cb1 text-center">
+          <img class="card-img-top" src="assets\img\agergar-estu-mini.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Agregar Estudiantes</h5>
+            <p class="card-text">En este lugar se permite agregar estudiantes</p>
+          </div>
+          <div class="card-body">
+            <a href="#" routerLink="/estudiantes/agregar-estudiante" class="btn btn-outline-light">Ingresar</a>
+          </div>
+        </div>
+
+      </div>
+
+
+
+      <div class="col-md-4 d-flex justify-countent-center">
+        <div class="card m-2 cb1 text-center">
+          <img class="card-img-top" src="assets\img\editar-estu-mini.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">MODIFICAR ESTUDIANTE</h5>
+            <p class="card-text">En este lugar se permite modificar la informacion de los estudiantes </p>
+          </div>
+          <div class="card-body">
+            <a href="#" routerLink="/estudiantes/agregar-estudiante" class="btn btn-outline-light">Ingresar</a>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
-
-  <div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="assets\img\estudiantes.jpg" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Agregar Estudiantes</h5>
-      <p class="card-text">En este lugar agregar estudiantes</p>
-    </div>
-    <div class="card-body">
-      <a routerLink="/estudiantes/agregar-estudiante" class="card-link">Entrar</a>
-    </div>
-  </div>
-
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+</body>

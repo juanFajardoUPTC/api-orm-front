@@ -1,0 +1,24 @@
+<table class="table table-hover ">
+    <thead>
+      <tr>
+        <th scope="col">Código</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">Tipo de documento</th>
+        <th scope="col">Número de documento</th>
+        <th scope="col">Género</th>
+        <th scope="col">Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let student of res" (click)="selectStudent (student)">
+          <td>{{ student.codigo }}</td>
+          <td>{{ student.nombre }}</td>
+          <td>{{ student.apellido }}</td>
+          <td>{{ student.tipo_documento}}</td>
+          <td>{{ student.numero_documento}}</td>
+          <td>{{ student.estado }}</td>
+          <td>{{ student.genero }}</td>
+        </tr>
+    </tbody>
+</table>

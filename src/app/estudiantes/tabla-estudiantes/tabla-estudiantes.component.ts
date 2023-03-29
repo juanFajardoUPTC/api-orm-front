@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicioEstudiantesService } from 'src/app/services/servicio-estudiantes.service';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tabla-estudiantes',
@@ -9,17 +9,17 @@ import { Router} from '@angular/router';
 })
 export class TablaEstudiantesComponent implements OnInit {
 
-  res:any = []
+  res: any = []
   paginaActual = 1
   itemsPerPage = 5
   totalPaginas = 1
 
-  ordenamiento ='asc'
+  ordenamiento = 'asc'
   columna = 'codigo'
   busqueda = ''
 
   students: any[] = [];
-  
+
 
 
   constructor(private servicioEstudiantes: ServicioEstudiantesService, private router: Router) { }
@@ -27,10 +27,8 @@ export class TablaEstudiantesComponent implements OnInit {
   ngOnInit(): void {
 
     this.servicioEstudiantes.getRequest(this.columna, this.ordenamiento, this.busqueda).subscribe(data => {
-
       console.log('Data', data);
-      this.students = data['estudiantes']
-      this.res = data['estudiantes']
+      this.res = data
       this.contarPaginas()
 
     }, error => {
@@ -40,28 +38,32 @@ export class TablaEstudiantesComponent implements OnInit {
   }
   cambiarPaginacion(key: string, event: any) {
 
-    if(key == 'mostrar')
-    this.itemsPerPage = Number(event)
-    
-    if(key == 'columna')
-    this.columna = event
-    
-    if(key == 'ordenamiento'){
+    if (key == 'mostrar')
+      this.itemsPerPage = Number(event)
+
+    if (key == 'columna')
+      this.columna = event
+
+    if (key == 'ordenamiento') {
       this.ordenamiento = event
-      if(this.ordenamiento == 'Ascendente')
-      this.ordenamiento = 'asc'
+      if (this.ordenamiento == 'Ascendente')
+        this.ordenamiento = 'asc'
 
     }
-    
-    if(key == 'busqueda')
-    this.busqueda = event
-    
-    
 
-      this.servicioEstudiantes.getRequest(this.columna,this.ordenamiento,this.busqueda).subscribe(data => {
-        console.log('Data',data);
-        this.res = data
-        this.contarPaginas()
+    if (key == 'busqueda')
+      this.busqueda = event
+
+
+
+    this.servicioEstudiantes.getRequest(this.columna, this.ordenamiento, this.busqueda).subscribe(data => {
+      console.log('Data', data);
+      this.res = data
+      this.contarPaginas()
+
+    }, error => {
+      console.log('ERROR', error);
+    });
 
     this.contarPaginas()
   }
@@ -91,7 +93,7 @@ export class TablaEstudiantesComponent implements OnInit {
     }
   }
 
-  selectStudent(index : number) {
+  selectStudent(index: number) {
     const selectedStudent = this.students[index];
     console.log('Estudiante', selectedStudent);
     window.sessionStorage.setItem('selectedStudent', JSON.stringify(selectedStudent));
@@ -99,10 +101,10 @@ export class TablaEstudiantesComponent implements OnInit {
   }
 
 
-goTomod() {
-  this.router.navigate(['/estudiantes/modificar-estudiante']);
-}
-  
+  goTomod() {
+    this.router.navigate(['/estudiantes/modificar-estudiante']);
+  }
+
 
 
 

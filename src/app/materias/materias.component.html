@@ -1,12 +1,38 @@
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="assets\img\materias.jpg" alt="Card image cap">
-    <div class="card-body">
-        <h5 class="card-title">Agregar Materias</h5>
-        <p class="card-text">En este lugar agrega materias</p>
+<body>
+    <div class="container">
+        <h1 class="title text-center py-4">MATERIAS</h1>
+      <div class=" row">
+        <div class="col-md-6 d-flex justify-countent-center">
+            <div class="card m-2 cb1 text-center">
+                <img class="card-img-top" src="assets\img\mostar-materia-mini.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">MOSTRAR MATERIAS</h5>
+                    <p class="card-text">En este lugar podra visualizar la informacion de los estudiantes/<p>
+                </div>
+                <div class="card-body">
+                    <a href="#"  routerLink="/materias/agregar-materia" class="btn btn-outline-light">Ingresar</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 d-flex justify-countent-center">
+            <div class="card m-2 cb1 text-center">
+                <img class="card-img-top" src="assets\img\agrega-materia-mini.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Agregar Materias</h5>
+                    <p class="card-text">En este lugar se permite agregar Materias</p>
+                </div>
+                <div class="card-body">
+                    <a href="#"  routerLink="/materias/agregar-materia" class="btn btn-outline-light">Ingresar</a>
+                </div>
+            </div> 
+        </div>
+      </div>
     </div>
-    <div class="card-body">
-        <a routerLink="/materias/agregar-materia" class="card-link">Entrar</a>
-    </div>
-</div>
+    <router-outlet></router-outlet>
+  </body>
 
-<router-outlet></router-outlet>
+
+
+  
+    
+

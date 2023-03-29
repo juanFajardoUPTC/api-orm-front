@@ -1,5 +1,5 @@
-
-<main>
+<body>
+  <main>
     <div class="container">
       <h3>Tabla de Estudiantes</h3>
       <app-students-table (onSelect)="estudiante = $event"></app-students-table>
@@ -17,7 +17,7 @@
       </div>
       <h3>Tabla de Materias</h3>
       <app-subjects-table (onSelectSubject)="onSubjectSelected($event)"></app-subjects-table>
-      
+
       <div *ngIf="selectedSubject" class="selected-subject">
         <h4>Asignatura seleccionada:</h4>
         <div class="subject-info">
@@ -29,12 +29,11 @@
       </div>
       <div>
         <label for="start">Fecha de Inscripción:</label>
-        <input type="date" id="start" name="trip-start" [value]= "currentDate" min="2018-01-01" max="" (change)="onDateSelected($event)">
+        <input type="date" id="start" name="trip-start" [value]="currentDate" min="2018-01-01" max=""
+          (change)="onDateSelected($event)">
       </div>
-      
-      <button type="button" class="btn btn-primary" (click)="onButtonClick()" >Agregar</button>
+
+      <button type="button" class="btn btn-primary" (click)="onButtonClick()">Agregar</button>
     </div>
   </main>
-
-
-
+</body>

@@ -1,9 +1,13 @@
+body {
+    background-image: linear-gradient(rgba(5 , 7 ,12, 0.45 ),rgba(5 , 7 ,12, 0.45 ),)
+   }
+
 .selected-student .student-info span {
     display: inline-block;
     margin-right: 10px;
 }
 .selected-student, .selected-subject {
-    background-color: #d9f7e6;
+    background-color: #5f94e3;
   }
 
   label {

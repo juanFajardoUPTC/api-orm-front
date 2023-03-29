@@ -1,16 +1,60 @@
-<div class="card" style="width: 18rem;">
-  
-    <div class="card" style="width: 18rem;">
-      <img class="card-img-top" src="assets\img\estudiantes.jpg" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Agregar Inscripcion</h5>
-        <p class="card-text">lugar para agregar incripcion</p>
+<body>
+  <div class="container">
+    <h1 class="title text-center py-4">INSCRIPCIONES</h1>
+    <div class=" row">
+      <div class="col-md-6 d-flex justify-countent-center">
+        <div class="card m-2 cb1 text-center">
+          <img class="card-img-top" src="assets\img\inscri-materia-mini.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Agregar Inscripcion</h5>
+            <p class="card-text">lugar para agregar incripción</p>
+          </div>
+          <div class="card-body">
+            <a href="#" routerLink="/inscripciones/agregar-inscripcion" class="btn btn-outline-light">Ingresar</a>
+          </div>
+        </div>
+
       </div>
-      <div class="card-body">
-        <a routerLink="/inscripciones/agregar-inscripcion" class="card-link">Ingresar</a>
+      <div class="col-md-6 d-flex justify-countent-center">
+        <div class="card m-2 cb1 text-center">
+          <img class="card-img-top" src="assets\img\mostrar-incrip-mini.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">MOSTRAR INSCRIPCIONES</h5>
+            <p class="card-text">lugar para vizualizar incripciones</p>
+          </div>
+          <div class="card-body">
+            <a href="#" routerLink="/inscripciones/agregar-inscripcion" class="btn btn-outline-light">Ingresar</a>
+          </div>
+        </div>
+
+      </div>
+      
+    </div>
+  </div>
+      <router-outlet></router-outlet>
+</body>
+
+
+<!---
+
+<body>
+  <div class="container">
+    <h1 class="title text-center py-4">ESTUDIANTES</h1>
+    <div class=" row">
+      <div class="col-md-4 d-flex justify-countent-center">
+
+
+      </div>
+      <div class="col-md-4 d-flex justify-countent-center">
+
+
+      </div>
+      <div class="col-md-4 d-flex justify-countent-center">
+
+
       </div>
     </div>
-  
-<router-outlet></router-outlet>
-
-
+  </div>
+      <router-outlet></router-outlet>
+</body>
+-->

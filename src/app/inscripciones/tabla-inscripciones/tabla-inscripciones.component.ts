@@ -46,10 +46,12 @@ this.servicioEstudiantes.getRequest(this.columna,this.ordenamiento,this.busqueda
     if(key == 'columna')
     this.columna = event
     
-    if(key == 'ordenamiento'){
+    if (key == 'ordenamiento') {
       this.ordenamiento = event
-      if(this.ordenamiento == 'Ascendente')
-      this.ordenamiento = 'asc'
+      if (this.ordenamiento == 'Ascendente')
+        this.ordenamiento = 'asc'
+        else
+        this.ordenamiento = 'desc'
 
     }
     

@@ -51,6 +51,8 @@ export class TablaEstudiantesComponent implements OnInit {
       this.ordenamiento = event
       if (this.ordenamiento == 'Ascendente')
         this.ordenamiento = 'asc'
+        else
+        this.ordenamiento = 'desc'
 
     }
 

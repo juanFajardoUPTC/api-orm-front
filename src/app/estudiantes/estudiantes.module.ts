@@ -8,6 +8,7 @@ import { TablaEstudiantesComponent } from './tabla-estudiantes/tabla-estudiantes
 import { AgregarEstudianteComponent } from './agregar-estudiante/agregar-estudiante.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule} from '@angular/forms';
+import { ModificarEstudianteComponent } from './modificar-estudiante/modificar-estudiante.component';
 
 
 
@@ -15,7 +16,8 @@ import { ReactiveFormsModule} from '@angular/forms';
   declarations: [
     EstudiantesComponent,
     TablaEstudiantesComponent,
-    AgregarEstudianteComponent
+    AgregarEstudianteComponent,
+    ModificarEstudianteComponent
   ],
   imports: [
     CommonModule,

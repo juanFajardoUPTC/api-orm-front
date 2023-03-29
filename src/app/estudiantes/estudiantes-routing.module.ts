@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { EstudiantesComponent } from './estudiantes.component';
 import { TablaEstudiantesComponent } from './tabla-estudiantes/tabla-estudiantes.component';
 import { AgregarEstudianteComponent } from './agregar-estudiante/agregar-estudiante.component';
+import { ModificarEstudianteComponent } from './modificar-estudiante/modificar-estudiante.component';
 
 const routes: Routes = [
   { 
@@ -14,6 +15,9 @@ const routes: Routes = [
  },
  {
   path: 'agregar-estudiante', component : AgregarEstudianteComponent
+ },
+ {
+  path: 'modificar-estudiante', component : ModificarEstudianteComponent
  }
 ];
 

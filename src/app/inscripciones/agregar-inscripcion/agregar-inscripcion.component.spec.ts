@@ -21,3 +21,4 @@ describe('AgregarInscripcionComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

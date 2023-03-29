@@ -26,6 +26,7 @@ export class AgregarEstudianteComponent implements OnInit {
     estudianteForm.control.markAllAsTouched();
 
   }
+  
   get currentEstudiante() {
     return JSON.stringify(this.model);
   }

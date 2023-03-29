@@ -3,7 +3,7 @@
     <div class="container">
       <h3>Tabla de Estudiantes</h3>
       <app-students-table (onSelect)="estudiante = $event"></app-students-table>
-  
+
       <div *ngIf="estudiante" class="selected-student">
         <h4>Estudiante seleccionado:</h4>
         <div class="student-info">
@@ -27,6 +27,14 @@
           <span>/{{selectedSubject.estado}}</span>
         </div>
       </div>
+      <div>
+        <label for="start">Fecha de Inscripción:</label>
+        <input type="date" id="start" name="trip-start" [value]= "currentDate" min="2018-01-01" max="" (change)="onDateSelected($event)">
+      </div>
+      
       <button type="button" class="btn btn-primary" (click)="onButtonClick()" >Agregar</button>
     </div>
   </main>
+
+
+

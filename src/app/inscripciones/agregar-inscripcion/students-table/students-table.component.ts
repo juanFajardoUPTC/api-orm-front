@@ -17,14 +17,12 @@ export class StudentsTableComponent implements OnInit {
 
   
   res:any
-
+/*
   students = [
     { codigo: '1', nombre: 'Juan', apellido: 'Pérez', tipoDocumento: 'CC', numeroDocumento: '123456789', estado: 'Activo', genero: 'M' },
     { codigo: '2', nombre: 'María', apellido: 'González', tipoDocumento: 'CC', numeroDocumento: '987654321', estado: 'Inactivo', genero: 'F' },
     { codigo: '3', nombre: 'Pedro', apellido: 'Ramírez', tipoDocumento: 'TI', numeroDocumento: '456789123', estado: 'Activo', genero: 'M' },
-  ];
-
-  
+  ];*/
 
   ngOnInit(): void {
     
@@ -38,5 +36,4 @@ export class StudentsTableComponent implements OnInit {
   selectStudent(student: any) {
     this.onSelect.emit(student);
   }
-
 }

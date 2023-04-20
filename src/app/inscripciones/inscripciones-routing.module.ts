@@ -8,8 +8,7 @@ const routes: Routes = [
   { path: '', component: InscripcionesComponent },
   {
     path: 'tabla-inscripciones', component: TablaInscripcionesComponent
-  },
-  {
+  },{
     path: 'agregar-inscripcion', component : AgregarInscripcionComponent
    }
 

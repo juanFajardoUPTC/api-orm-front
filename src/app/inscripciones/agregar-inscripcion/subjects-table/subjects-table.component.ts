@@ -1,5 +1,6 @@
-import {  Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit , Output,  EventEmitter } from '@angular/core';
 import {ServicioMateriasService} from 'src/app/services/servicio-materias.service';
+
 
 @Component({
   selector: 'app-subjects-table',
@@ -24,7 +25,7 @@ export class SubjectsTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.servicioMaterias.getRequest().subscribe(data => {
-      this.res = data['materias']
+      this.res = data
     },error => {
       console.log('ERROR Al Obtener Materias',error);
     });

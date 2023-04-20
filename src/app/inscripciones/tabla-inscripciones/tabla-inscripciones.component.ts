@@ -8,12 +8,12 @@ import { ServicioInscripcionesService } from 'src/app/services/servicio-inscripc
 })
 export class TablaInscripcionesComponent implements OnInit {
 
-  res:any = []
+  res: any = []
   paginaActual = 1
   itemsPerPage = 5
   totalPaginas = 1
 
-  ordenamiento ='asc'
+  ordenamiento = 'asc'
   columna = 'id_inscripcion'
   busqueda = ''
 
@@ -22,81 +22,81 @@ export class TablaInscripcionesComponent implements OnInit {
   constructor(private servicioEstudiantes: ServicioInscripcionesService) { }
 
   ngOnInit(): void {
-    
-this.servicioEstudiantes.getRequest(this.columna,this.ordenamiento,this.busqueda).subscribe(data => {
-  console.log('Data',data);
 
-  if(data['inscripciones'])
-  this.res = data['inscripciones']
-  else
-  this.res = data
+    this.servicioEstudiantes.getRequest(this.columna, this.ordenamiento, this.busqueda).subscribe(data => {
+      console.log('Data', data);
 
-  this.contarPaginas()
+      if (data['inscripciones'])
+        this.res = data['inscripciones']
+      else
+        this.res = data
 
-}, error => {
-  console.log('ERROR',error);
-});
-    
+      this.contarPaginas()
+
+    }, error => {
+      console.log('ERROR', error);
+    });
+
   }
-  cambiarPaginacion(key:string,event:any){
+  cambiarPaginacion(key: string, event: any) {
 
-    if(key == 'mostrar')
-    this.itemsPerPage = Number(event)
-    
-    if(key == 'columna')
-    this.columna = event
-    
+    if (key == 'mostrar')
+      this.itemsPerPage = Number(event)
+
+    if (key == 'columna')
+      this.columna = event
+
     if (key == 'ordenamiento') {
       this.ordenamiento = event
       if (this.ordenamiento == 'Ascendente')
         this.ordenamiento = 'asc'
-        else
+      else
         this.ordenamiento = 'desc'
 
     }
-    
-    if(key == 'busqueda')
-    this.busqueda = event
-    
-    
 
-      this.servicioEstudiantes.getRequest(this.columna,this.ordenamiento,this.busqueda).subscribe(data => {
-        console.log('Data',data);
-        if(data['inscripciones'])
-  this.res = data['inscripciones']
-  else
-  this.res = data
-        this.contarPaginas()
+    if (key == 'busqueda')
+      this.busqueda = event
 
-      }, error => {
-        console.log('ERROR',error);
-      });
-    
+
+
+    this.servicioEstudiantes.getRequest(this.columna, this.ordenamiento, this.busqueda).subscribe(data => {
+      console.log('Data', data);
+      if (data['inscripciones'])
+        this.res = data['inscripciones']
+      else
+        this.res = data
+      this.contarPaginas()
+
+    }, error => {
+      console.log('ERROR', error);
+    });
+
     this.contarPaginas()
   }
 
-  llenarLista(){
+  llenarLista() {
 
   }
-  contarPaginas(){
+  contarPaginas() {
     this.totalPaginas = 0
     this.paginaActual = 1
     for (let index = 0, c = 0; index < this.res.length; index++, c++) {
       const element = this.res[index];
-      if(this.res.length <= this.itemsPerPage){
+      if (this.res.length <= this.itemsPerPage) {
         this.totalPaginas = 1
         break
       }
       else
-      if(c == this.itemsPerPage){
+        if (c == this.itemsPerPage) {
+          this.totalPaginas++
+          c = 0
+        }
+
+      if (index == this.res.length - 1) {
         this.totalPaginas++
-        c = 0
       }
-       
-      if(index == this.res.length - 1){
-        this.totalPaginas++
-      }
-      
+
     }
   }
 

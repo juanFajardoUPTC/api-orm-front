@@ -1,105 +1,107 @@
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Otros elementos en head -->
+</head>
 <body>
-  
-
-<div class="contenido">
-
-
-  <br>
-  <h1 class="d-flex justify-content-center">Lista de Estudiantes</h1>
-  <br>
-  <br>
-  <div class="">
-    <div class="rows">
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Mostrar</label>
+  <div class="contenido">
+    <br>
+    <h1 class="d-flex justify-content-center">Lista de Estudiantes</h1>
+    <br>
+    <br>
+    <div class="">
+      <div class="rows">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Mostrar</label>
+          </div>
+          <select class="custom-select" id="inputGroupSelect01" #valorMostrar
+            (change)="cambiarPaginacion('mostrar',valorMostrar.value)">
+            <option value="5" selected>5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+          </select>
         </div>
-        <select class="custom-select" id="inputGroupSelect01" #valorMostrar
-          (change)="cambiarPaginacion('mostrar',valorMostrar.value)">
-          <option value="5" selected>5</option>
-          <option value="10">10</option>
-          <option value="15">15</option>
-          <option value="20">20</option>
-        </select>
-      </div>
 
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Ordenar por</label>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Ordenar por</label>
+          </div>
+          <select class="custom-select" id="inputGroupSelect01" #valorColumna
+            (change)="cambiarPaginacion('columna',valorColumna.value) ">
+            <option value="codigo" selected>Codigo</option>
+            <option value="nombre">Nombre</option>
+            <option value="apellido">Apellido</option>
+            <option value="tipo_documento">Tipo de Documento</option>
+            <option value="numero_documento">Numero de Documento</option>
+            <option value="estado">Estado</option>
+            <option value="genero">Genero</option>
+          </select>
         </div>
-        <select class="custom-select" id="inputGroupSelect01" #valorColumna
-          (change)="cambiarPaginacion('columna',valorColumna.value) ">
-          <option value="codigo" selected>Codigo</option>
-          <option value="nombre">Nombre</option>
-          <option value="apellido">Apellido</option>
-          <option value="tipo_documento">Tipo de Documento</option>
-          <option value="numero_documento">Numero de Documento</option>
-          <option value="estado">Estado</option>
-          <option value="genero">Genero</option>
-        </select>
-      </div>
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Tipo de ordenamiento</label>
-        </div>
-        <select class="custom-select" id="inputGroupSelect01" #valorOrdenamiento
-          (change)="cambiarPaginacion('ordenamiento',valorOrdenamiento.value)">
-          <option value="Ascendente" selected>Ascendente</option>
-          <option value="Descendente">Descendente</option>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Tipo de ordenamiento</label>
+          </div>
+          <select class="custom-select" id="inputGroupSelect01" #valorOrdenamiento
+            (change)="cambiarPaginacion('ordenamiento',valorOrdenamiento.value)">
+            <option value="Ascendente" selected>Ascendente</option>
+            <option value="Descendente">Descendente</option>
 
-        </select>
-      </div>
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">Busqueda</span>
+          </select>
         </div>
-        <input #busqueda type="text" class="form-control" placeholder="..." aria-label="Username"
-          aria-describedby="basic-addon1">
-        <button (click)="cambiarPaginacion('busqueda',busqueda.value)">Buscar</button>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Busqueda</span>
+          </div>
+          <input #busqueda type="text" class="form-control" placeholder="..." aria-label="Username"
+            aria-describedby="basic-addon1">
+          <button (click)="cambiarPaginacion('busqueda',busqueda.value)">Buscar</button>
+        </div>
+
       </div>
 
     </div>
+    <div class="table-responsive">
 
-  </div>
-  <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Codigo</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Tipo de documento</th>
+            <th scope="col">Numero de documento</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Genero</th>
+            <th scope="col">Editar</th>
+            <th scope="col">Inabilitar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let estudiante of res | paginate: {itemsPerPage:itemsPerPage, currentPage:paginaActual}; let i =index">
+            <th scope="row">{{estudiante.codigo}}</th>
+            <td>{{estudiante.nombre}}</td>
+            <td>{{estudiante.apellido}}</td>
+            <td>{{estudiante.tipo_documento}}</td>
+            <td>{{estudiante.numero_documento}}</td>
+            <td>{{estudiante.estado}}</td>
+            <td>{{estudiante.genero}}</td>
+            <td><button type="button" class="btn btn-primary" (click)="selectStudent(i); goTomod()">Editar</button></td>
+            <td><button type="button" class="btn btn-danger">Inabilitar</button></td>
 
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Codigo</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Apellido</th>
-          <th scope="col">Tipo de documento</th>
-          <th scope="col">Numero de documento</th>
-          <th scope="col">Estado</th>
-          <th scope="col">Genero</th>
-          <th scope="col">Editar</th>
-          <th scope="col">Inabilitar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let estudiante of res | paginate: {itemsPerPage:itemsPerPage, currentPage:paginaActual}; let i =index">
-          <th scope="row">{{estudiante.codigo}}</th>
-          <td>{{estudiante.nombre}}</td>
-          <td>{{estudiante.apellido}}</td>
-          <td>{{estudiante.tipo_documento}}</td>
-          <td>{{estudiante.numero_documento}}</td>
-          <td>{{estudiante.estado}}</td>
-          <td>{{estudiante.genero}}</td>
-          <td><button type="button" class="btn btn-primary" (click)="selectStudent(i); goTomod()">Editar</button></td>
-          <td><button type="button" class="btn btn-danger">Inabilitar</button></td>
+          </tr>
 
-        </tr>
+        </tbody>
+      </table>
 
-      </tbody>
-    </table>
-
-  </div>
-  <div class="pagination">
-    <div class="">Pagina {{paginaActual}} de {{totalPaginas}}</div>
-    <div class=" "><pagination-controls (pageChange)="paginaActual = $event" [responsive]="true"></pagination-controls>
     </div>
-
+    <div class="pagination">
+      <div class="">Pagina {{paginaActual}} de {{totalPaginas}}</div>
+      <div class=" "><pagination-controls (pageChange)="paginaActual = $event"
+          [responsive]="true"></pagination-controls>
+      </div>
+    </div>
   </div>
-
-</div>
+</body>

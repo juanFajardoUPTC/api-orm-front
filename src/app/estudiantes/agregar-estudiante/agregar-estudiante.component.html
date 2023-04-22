@@ -47,10 +47,10 @@
             </select>
 
             <label for="genero"> Genero:</label>
-            <input type="text" name="genero" class="form-control" id="genero" [(ngModel)]="model.genero"
+            <input type="text" name="genero" class="form-control" id="genero" [(ngModel)]="model.genero "
                 maxlength="3" />
 
-                <ngx-dropzone (change)="onSelect($event)" accept="image/*">
+                <ngx-dropzone (change)="onSelect($event)" accept="image/*" [multiple]="false" [maxFileSize] ="15000000" >
                 
                     <ngx-dropzone-label>Arrastre aca la imagen o haz  click aqui </ngx-dropzone-label>
                 

@@ -13,11 +13,12 @@ import { ServicioEstudiantesService } from 'src/app/services/servicio-estudiante
   styleUrls: ['./agregar-estudiante.component.scss']
 })
 export class AgregarEstudianteComponent implements OnInit {
-
+ 
   
 
   res:any
   model = new Estudiante(2023, "", "", "", "", "", "");
+  imagenSeleccionada = false
 
 
   constructor(private servicioEstudiantes: ServicioEstudiantesService) { }
@@ -28,11 +29,14 @@ export class AgregarEstudianteComponent implements OnInit {
 
   files: File[] = [];
 
-  onSelect(event:any) {
-    console.log(event);
-    this.files.push(...event.addedFiles);
+  onSelect(event: any) {
+    const file = event.addedFiles[0];
+    if (this.files.length > 0) {
+      this.files.splice(0, 1);
+    }
+    this.files.push(file);
+    this.imagenSeleccionada = true;
   }
-  
   onRemove(event:any) {
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);

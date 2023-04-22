@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Estudiante } from '../estudiante.model';
 import { NgForm } from '@angular/forms';
 import { ServicioEstudiantesService } from 'src/app/services/servicio-estudiantes.service';
+import * as Dropzone from 'dropzone';
+
 
 
 
@@ -19,6 +21,7 @@ export class AgregarEstudianteComponent implements OnInit {
   constructor(private servicioEstudiantes: ServicioEstudiantesService) { }
 
   ngOnInit(): void {
+
 
   }
 

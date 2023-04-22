@@ -5,12 +5,16 @@ import { ServicioEstudiantesService } from 'src/app/services/servicio-estudiante
 
 
 
+
+
 @Component({
   selector: 'app-agregar-estudiante',
   templateUrl: './agregar-estudiante.component.html',
   styleUrls: ['./agregar-estudiante.component.scss']
 })
 export class AgregarEstudianteComponent implements OnInit {
+
+  
 
   res:any
   model = new Estudiante(2023, "", "", "", "", "", "");
@@ -21,6 +25,22 @@ export class AgregarEstudianteComponent implements OnInit {
   ngOnInit(): void {
 
   }
+
+  files: File[] = [];
+
+  onSelect(event:any) {
+    console.log(event);
+    this.files.push(...event.addedFiles);
+  }
+  
+  onRemove(event:any) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
+  }
+
+ 
+
+
 
   onSubmit(estudianteForm: NgForm){
     estudianteForm.control.markAllAsTouched();

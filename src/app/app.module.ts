@@ -5,6 +5,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule} from "@angular/forms";
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ReactiveFormsModule} from "@angular/forms";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxDropzoneModule
   ],
   providers: [],
   bootstrap: [AppComponent]

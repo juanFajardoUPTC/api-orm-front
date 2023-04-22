@@ -9,7 +9,7 @@ import { AgregarEstudianteComponent } from './agregar-estudiante/agregar-estudia
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule} from '@angular/forms';
 import { ModificarEstudianteComponent } from './modificar-estudiante/modificar-estudiante.component';
-
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 
 @NgModule({
@@ -24,8 +24,8 @@ import { ModificarEstudianteComponent } from './modificar-estudiante/modificar-e
     EstudiantesRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-  
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxDropzoneModule
 
   ]
 })

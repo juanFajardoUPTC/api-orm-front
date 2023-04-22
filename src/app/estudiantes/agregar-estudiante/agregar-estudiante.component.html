@@ -50,6 +50,19 @@
             <input type="text" name="genero" class="form-control" id="genero" [(ngModel)]="model.genero"
                 maxlength="3" />
 
+                <ngx-dropzone (change)="onSelect($event)" accept="image/*">
+                
+                    <ngx-dropzone-label>Arrastre aca la imagen o haz  click aqui </ngx-dropzone-label>
+                
+                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                    </ngx-dropzone-image-preview>
+                </ngx-dropzone>
+
+
+               
+
+
             <button type="submit" class="btn btn-primary" (click)="addStudent()">
                 Enviar
             </button>
@@ -57,5 +70,6 @@
 
         </form>
     </div>
+
 
 </body>

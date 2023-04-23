@@ -1,71 +1,94 @@
 <body>
-    <div class="container">
+    <div class="container w-50">
         <h1>Estudiante</h1>
-        <form (ngSubmit)="onSubmit">
-            <label for="codigo"> Codigo:</label>
-            <input type="number" name="codigo" class="form-control" id="codigo" [(ngModel)]="model.codigo" required
-                maxlength="45" #codigo="ngModel" [ngClass]="{ 'invalid-field': codigo.invalid && codigo.touched }">
-            <div *ngIf="codigo.invalid && codigo.touched" class="error">**Código es requerido**</div>
+        <form (ngSubmit)="onSubmit" class="row g-3 mt-3 ">
+            <div class="col-md-4 col-lg-5" >
+            <label for="rostro"> Foto de Estudiante:</label>
+            <ngx-dropzone (change)="onSelect($event)"  name = rostro  accept="image/*" [multiple]="false" [maxFileSize]="15000000">
+                <ngx-dropzone-label>Arrastre aca la imagen o haz click aqui </ngx-dropzone-label>
+                <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"
+                    [removable]="true" (removed)="onRemove(f)">
+                    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                </ngx-dropzone-image-preview>
+            </ngx-dropzone>
+            </div>
 
-
-            <label for="nombre"> Nombre:</label>
-            <input type="text" name="nombre" class="form-control" id="nombre" [(ngModel)]="model.nombre" required
-                #nombre="ngModel" [ngClass]="{ 'invalid-field': nombre.invalid && nombre.touched }" />
-            <div *ngIf="nombre.invalid && nombre.touched" class="error">**Nombre es requerido**</div>
-
-            <label for="apellido"> Apellido:</label>
-            <input type="text" name="apellido" class="form-control" id="apellido" [(ngModel)]="model.apellido" required
-                #apellido="ngModel" [ngClass]="{ 'invalid-field': apellido.invalid && apellido.touched }" />
-            <div *ngIf="apellido.invalid && apellido.touched" class="error">**Apellido es requerido**</div>
-
-            <label for="tipo_documento"> Tipo de Documento:</label>
-            <select name="tipo_documento" class="form-control" id="tipo_documento" [(ngModel)]="model.tipo_documento"
-                required #tipo_documento="ngModel"
-                [ngClass]="{ 'invalid-field': tipo_documento.invalid && tipo_documento.touched }">
-                <option value="CC">Cédula de Ciudadanía</option>
-                <option value="TI">Tarjeta de Identidad</option>
-                <option value="CE">Cédula de Extranjería</option>
-            </select>
-            <div *ngIf="tipo_documento.invalid && tipo_documento.touched" class="error">**Tipo de documento es
-                requerido**
+            
+            <div class="col-xl-7">
+                <div class="row mt-3 ">
+                    <div class="col">
+                            <label for="codigo"> Codigo:</label>
+                            <input type="number" name="codigo" class="form-control" id="codigo" [(ngModel)]="model.codigo" required
+                                maxlength="45" #codigo="ngModel" [ngClass]="{ 'invalid-field': codigo.invalid && codigo.touched }">
+                            <div *ngIf="codigo.invalid && codigo.touched" class="error">**Código es requerido**</div>
+                    </div>
+                </div>
+            
+                <div class="row  mt-3">
+                    <div class="col">
+                        <label for="nombre"> Nombre:</label>
+                        <input type="text" name="nombre" class="form-control" id="nombre" [(ngModel)]="model.nombre" required
+                            #nombre="ngModel" [ngClass]="{ 'invalid-field': nombre.invalid && nombre.touched }" />
+                        <div *ngIf="nombre.invalid && nombre.touched" class="error">**Nombre es requerido**</div>
+                    </div>
+                </div>
+            
+                <div class="row mt-3">
+                    <div class="col">
+                        <label for="apellido"> Apellido:</label>
+                        <input type="text" name="apellido" class="form-control" id="apellido" [(ngModel)]="model.apellido" required
+                            #apellido="ngModel" [ngClass]="{ 'invalid-field': apellido.invalid && apellido.touched }" />
+                        <div *ngIf="apellido.invalid && apellido.touched" class="error">**Apellido es requerido**</div>
+                    </div>
+                </div>
             </div>
 
 
-            <label for="numero_documento"> Numero de Documento:</label>
-            <input type="text" name="numero_documento" class="form-control" id="numero_documento"
-                [(ngModel)]="model.numero_documento" required maxlength="15" #numero_documento="ngModel"
-                [ngClass]="{ 'invalid-field': numero_documento.invalid && numero_documento.touched }" />
-            <div *ngIf="numero_documento.invalid && numero_documento.touched" class="error">**Numero de documento es
-                requerido**</div>
+            <div class="col-md-6">
+                <label for="tipo_documento"> Tipo de Documento:</label>
+                <select name="tipo_documento" class="form-control" id="tipo_documento"
+                    [(ngModel)]="model.tipo_documento" required #tipo_documento="ngModel"
+                    [ngClass]="{ 'invalid-field': tipo_documento.invalid && tipo_documento.touched }">
+                    <option value="CC">Cédula de Ciudadanía</option>
+                    <option value="TI">Tarjeta de Identidad</option>
+                    <option value="CE">Cédula de Extranjería</option>
+                </select>
+                <div *ngIf="tipo_documento.invalid && tipo_documento.touched" class="error">**Tipo de documento es
+                    requerido**
+                </div>
+            </div>
 
-            <label for="estado"> Estado:</label>
-            <select name="estado" class="form-control" id="estado" [(ngModel)]="model.estado" maxlength="1">
-                <option value="A">Estudiante Activo</option>
-                <option value="R">Estudiante Retirado</option>
-                <option value="E">Estudiante Egresado</option>
-                <option value="S">Estudiante Suspendido</option>
-            </select>
+            <div class="col-md-6">
+                <label for="numero_documento"> Numero de Documento:</label>
+                <input type="text" name="numero_documento" class="form-control" id="numero_documento"
+                    [(ngModel)]="model.numero_documento" required maxlength="15" #numero_documento="ngModel"
+                    [ngClass]="{ 'invalid-field': numero_documento.invalid && numero_documento.touched }" />
+                <div *ngIf="numero_documento.invalid && numero_documento.touched" class="error">**Numero de documento es
+                    requerido**</div>
+            </div>
 
-            <label for="genero"> Genero:</label>
-            <input type="text" name="genero" class="form-control" id="genero" [(ngModel)]="model.genero "
-                maxlength="3" />
+            <div class="col-12">
+                <label for="estado"> Estado:</label>
+                <select name="estado" class="form-control" id="estado" [(ngModel)]="model.estado" maxlength="1">
+                    <option value="A">Estudiante Activo</option>
+                    <option value="R">Estudiante Retirado</option>
+                    <option value="E">Estudiante Egresado</option>
+                    <option value="S">Estudiante Suspendido</option>
+                </select>
+            </div>
 
-                <ngx-dropzone (change)="onSelect($event)" accept="image/*" [multiple]="false" [maxFileSize] ="15000000" >
-                
-                    <ngx-dropzone-label>Arrastre aca la imagen o haz  click aqui </ngx-dropzone-label>
-                
-                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
-                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-                    </ngx-dropzone-image-preview>
-                </ngx-dropzone>
+            <div class="col-12">
+                <label for="genero"> Genero:</label>
+                <input type="text" name="genero" class="form-control" id="genero" [(ngModel)]="model.genero "
+                    maxlength="3" />
+            </div>
 
-
-               
-
-
+        
+        <div class="col-12">
             <button type="submit" class="btn btn-primary" (click)="addStudent()">
                 Enviar
             </button>
+        </div>
 
 
         </form>

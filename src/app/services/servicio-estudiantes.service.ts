@@ -15,7 +15,7 @@ export class ServicioEstudiantesService {
     queryParams = queryParams.append("columna",columna);
     queryParams = queryParams.append("ordenamiento",ordenamiento);
     queryParams = queryParams.append("busqueda",busqueda);
-    return this.http.get('/estudiantes',{params:queryParams}); 
+    return this.http.get('https://rzv75m7ksk.execute-api.us-east-2.amazonaws.com/students',{params:queryParams}); 
   }
 
   public postRequest(body:any): Observable<any>{

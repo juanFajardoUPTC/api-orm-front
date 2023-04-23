@@ -22,6 +22,6 @@ export class ServicioEstudiantesService {
     let headers = new HttpHeaders({
       'content-type': 'application/json',
     })
-    return this.http.post('/estudiantes/agregar',body,{'headers':headers}); 
+    return this.http.post('https://rzv75m7ksk.execute-api.us-east-2.amazonaws.com/students/agregar',body,{'headers':headers}); 
   }
 }

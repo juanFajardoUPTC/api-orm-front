@@ -1,6 +1,6 @@
-<!--<head>
+<head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>-->
+</head>
 
 
 <body>
@@ -9,7 +9,6 @@
     <h1 class="d-flex justify-content-center">Lista de Estudiantes</h1>
     <br>
     <br>
-
 
     <div class="row g-3 mt-3">
       <div class="col-sm-12 col-md-6 col-lg-3">
@@ -25,7 +24,7 @@
             <option value="20">20</option>
           </select>
         </div>
-      
+
       </div>
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div class="input-group mb-3">
@@ -61,9 +60,9 @@
             <option value="Descendente">Descendente</option>
           </select>
         </div>
-      
+
       </div>
-      
+
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div class="input-group mb-3">
           <div class="input-group-prepend bg-light">
@@ -76,48 +75,49 @@
       </div>
 
       <div class="col-12">
-      <div class="table-responsive">
-        <table class="table table-hover">
-          <thead class="table-dark">
-            <tr>
-              <th scope="col">Codigo</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Apellido</th>
-              <th scope="col">Tipo de documento</th>
-              <th scope="col">Numero de documento</th>
-              <th scope="col">Estado</th>
-              <th scope="col">Genero</th>
-              <th scope="col">Editar</th>
-              <th scope="col">Inabilitar</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              *ngFor="let estudiante of res | paginate: {itemsPerPage:itemsPerPage, currentPage:paginaActual}; let i =index">
-              <th scope="row">{{estudiante.codigo}}</th>
-              <td>{{estudiante.nombre}}</td>
-              <td>{{estudiante.apellido}}</td>
-              <td>{{estudiante.tipo_documento}}</td>
-              <td>{{estudiante.numero_documento}}</td>
-              <td>{{estudiante.estado}}</td>
-              <td>{{estudiante.genero}}</td>
-              <td><button type="button" class="btn btn-primary" (click)="selectStudent(i); goTomod()">Editar</button></td>
-              <td><button type="button" class="btn btn-danger">Inabilitar</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="col-12">
-      <div class="pagination">
-        <div class="">Pagina {{paginaActual}} de {{totalPaginas}}</div>
-        <div class=" "><pagination-controls (pageChange)="paginaActual = $event"
-            [responsive]="true"></pagination-controls>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">Codigo</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Tipo de documento</th>
+                <th scope="col">Numero de documento</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Genero</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Inabilitar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let estudiante of res | paginate: {itemsPerPage:itemsPerPage, currentPage:paginaActual}; let i =index">
+                <th scope="row">{{estudiante.codigo}}</th>
+                <td>{{estudiante.nombre}}</td>
+                <td>{{estudiante.apellido}}</td>
+                <td>{{estudiante.tipo_documento}}</td>
+                <td>{{estudiante.numero_documento}}</td>
+                <td>{{estudiante.estado}}</td>
+                <td>{{estudiante.genero}}</td>
+                <td><button type="button" class="btn btn-primary" (click)="selectStudent(i); goTomod()">Editar</button>
+                </td>
+                <td><button type="button" class="btn btn-danger">Inabilitar</button></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
+
+      <div class="col-12">
+        <div class="pagination">
+          <div class="">Pagina {{paginaActual}} de {{totalPaginas}}</div>
+          <div class=" "><pagination-controls (pageChange)="paginaActual = $event"
+              [responsive]="true"></pagination-controls>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
-  </div>
 </body>
-

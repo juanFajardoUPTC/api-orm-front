@@ -1,6 +1,5 @@
 {
     "/estudiantes/*": {
-         
         "target": "https://rzv75m7ksk.execute-api.us-east-2.amazonaws.com/students",
         "secure": false
     },

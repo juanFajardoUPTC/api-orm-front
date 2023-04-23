@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicioEstudiantesService } from 'src/app/services/servicio-estudiantes.service';
 import { Router } from '@angular/router';
+import { FormGroup ,FormBuilder} from '@angular/forms';
+
 
 @Component({
   selector: 'app-tabla-estudiantes',
@@ -9,23 +11,41 @@ import { Router } from '@angular/router';
 })
 export class TablaEstudiantesComponent implements OnInit {
 
-  res: any = []
+  res: any = [];
+  students: any[] = [];
   paginaActual = 1
   itemsPerPage = 5
   totalPaginas = 1
-
   ordenamiento = 'asc'
   columna = 'codigo'
   busqueda = ''
+  fmRcurso: FormGroup;
+  
+  constructor(
+    private servicioEstudiantes: ServicioEstudiantesService,
+     private router: Router,
+    private formBuilder: FormBuilder,
+    private fb:FormBuilder
 
-  students: any[] = [];
+
+     ) {
+      this.fmRcurso =this.fb.group({
+        codigo:['2018'],
+        nombre:[''],
+        apellido:['555'],
+        genero:[''],
+        numero_documento:['555'],
+        tipo_documento:[''],
+        estado:[''],
+        
+      })
 
 
+      }
+  
 
-  constructor(private servicioEstudiantes: ServicioEstudiantesService, private router: Router) { }
 
   ngOnInit(): void {
-
     this.servicioEstudiantes.getRequest(this.columna, this.ordenamiento, this.busqueda).subscribe(data => {
       console.log('Data', data);
       if(data['estudiantes'])
@@ -116,5 +136,8 @@ export class TablaEstudiantesComponent implements OnInit {
 
 
 
+  onSubmit(){
+    alert("funciona")
+  }
 
 }

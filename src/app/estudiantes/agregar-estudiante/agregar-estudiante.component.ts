@@ -63,6 +63,7 @@ export class AgregarEstudianteComponent implements OnInit {
     this.servicioEstudiantes.postRequest(this.model).subscribe(
       (      respuesta: any) => {
         // Manejar la respuesta exitosa aquí
+        this.putImagen();
         console.log(respuesta);
       },
       error => {

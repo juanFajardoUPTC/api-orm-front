@@ -18,6 +18,8 @@ export class TablaEstudiantesComponent implements OnInit {
   columna = 'codigo'
   busqueda = ''
 
+  linkImg = ''
+
   students: any[] = [];
 
 
@@ -32,6 +34,23 @@ export class TablaEstudiantesComponent implements OnInit {
       this.res = data['estudiantes']
       else
       this.res = data
+
+      for (const iterator of this.res) {
+      
+        this.servicioEstudiantes.getImg({
+          "object_name": iterator.path,
+          "expiration": 3600,
+          "method": "GET"
+        }).subscribe(res=>{
+          console.log('RESPUESTA',res);
+    
+        let aux = JSON.parse(res['body'])
+        console.log('AUX',aux['event_s']);
+    
+          iterator.pathPresigned = aux['event_s']
+    
+        })
+      }
       this.contarPaginas()
 
     }, error => {
@@ -114,6 +133,24 @@ export class TablaEstudiantesComponent implements OnInit {
   }
 
 
+  getImagenes(path:string){
+    for (const iterator of this.res) {
+      
+      this.servicioEstudiantes.getImg({
+        "object_name": path,
+        "expiration": 3600,
+        "method": "GET"
+      }).subscribe(res=>{
+        console.log('RESPUESTA',res);
+  
+      let aux = JSON.parse(res['body'])
+      console.log('AUX',aux['event_s']);
+  
+        iterator.path = aux['event_s']
+  
+      })
+    }
+  }
 
 
 

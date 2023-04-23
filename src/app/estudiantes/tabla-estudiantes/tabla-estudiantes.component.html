@@ -81,6 +81,7 @@
           <thead class="table-dark">
             <tr>
               <th scope="col">Codigo</th>
+              <th scope="col">Imagen</th>
               <th scope="col">Nombre</th>
               <th scope="col">Apellido</th>
               <th scope="col">Tipo de documento</th>
@@ -95,6 +96,7 @@
             <tr
               *ngFor="let estudiante of res | paginate: {itemsPerPage:itemsPerPage, currentPage:paginaActual}; let i =index">
               <th scope="row">{{estudiante.codigo}}</th>
+              <td><img [src]="estudiante.pathPresigned?estudiante.pathPresigned:''" alt="" width="150" height="150"></td>
               <td>{{estudiante.nombre}}</td>
               <td>{{estudiante.apellido}}</td>
               <td>{{estudiante.tipo_documento}}</td>

@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class ServicioEstudiantesService {
 
+  private imagenes = environment.api_imagenes
+
   constructor(private http:HttpClient) {  }
 
   public getRequest(columna = 'codigo' , ordenamiento = 'asc' ,busqueda = ''): Observable<any>{
@@ -23,5 +25,20 @@ export class ServicioEstudiantesService {
       'content-type': 'application/json',
     })
     return this.http.post('/estudiantes/agregar',body,{'headers':headers}); 
+  }
+  public getImg(body:any): Observable<any>{
+    let headers = new HttpHeaders({
+      'content-type': 'application/json',
+    })
+    return this.http.post(this.imagenes,body,{'headers':headers});
+  }
+  public UploadPresigned(url:string, body:any) {
+    let headers = new HttpHeaders({
+      'content-type': '/',
+      "Access-Control-Allow-Headers" : "Content-Type",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "OPTIONS,PUT"
+        })
+    return this.http.put(url, body,{'headers':headers});
   }
 }

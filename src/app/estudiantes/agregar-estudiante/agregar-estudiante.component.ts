@@ -20,6 +20,8 @@ export class AgregarEstudianteComponent implements OnInit {
   model = new Estudiante(2023, "", "", "", "", "", "");
   imagenSeleccionada = false
 
+  fileSelected:any;
+
 
   constructor(private servicioEstudiantes: ServicioEstudiantesService) { }
 
@@ -31,6 +33,8 @@ export class AgregarEstudianteComponent implements OnInit {
 
   onSelect(event: any) {
     const file = event.addedFiles[0];
+    this.fileSelected = file;
+
     if (this.files.length > 0) {
       this.files.splice(0, 1);
     }
@@ -68,5 +72,31 @@ export class AgregarEstudianteComponent implements OnInit {
     );
     console.log(this.model);
   }
+
+  //putImagen(event:any){
+    putImagen(){
+
+    this.servicioEstudiantes.getImg({
+      "object_name": "estudiantes3.pdf",
+      "expiration": 3600,
+      "method": "PUT",
+    }).subscribe(res=>{
+      let body = JSON.parse(res['body']);
+      let url = body['event_s']
+      console.log(url);
+
+this.servicioEstudiantes.UploadPresigned(url,this.fileSelected).subscribe(
+  (resPresigned: any) => {
+    console.log(resPresigned);
+    alert('La imagen fue subida con exito')
+  }
+);
+
+    })
+
+
+  }
+
+
 
 }

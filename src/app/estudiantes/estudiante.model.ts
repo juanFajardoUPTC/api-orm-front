@@ -6,6 +6,8 @@ export class Estudiante{
         public tipo_documento : string,
         public numero_documento : string,
         public estado? : string,
-        public genero? : string
+        public genero? : string,
+        public path?:string
+
     ){}
 }

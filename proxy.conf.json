@@ -1,7 +1,6 @@
 {
     "/estudiantes/*": {
-         
-        "target": "https://rzv75m7ksk.execute-api.us-east-2.amazonaws.com/students",
+        "target": "http://localhost:3000",
         "secure": false
     },
     "/materias/*": {

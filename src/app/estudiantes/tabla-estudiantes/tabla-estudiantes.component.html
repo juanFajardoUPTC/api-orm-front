@@ -1,6 +1,6 @@
-<!--<head>
+<head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>-->
+</head>
 
 
 <body>
@@ -9,8 +9,6 @@
     <h1 class="d-flex justify-content-center">Lista de Estudiantes</h1>
     <br>
     <br>
-
-
     <div class="row g-3 mt-3">
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div class="input-group mb-3 ">
@@ -25,7 +23,7 @@
             <option value="20">20</option>
           </select>
         </div>
-      
+
       </div>
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div class="input-group mb-3">
@@ -61,9 +59,9 @@
             <option value="Descendente">Descendente</option>
           </select>
         </div>
-      
+
       </div>
-      
+
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div class="input-group mb-3">
           <div class="input-group-prepend bg-light">
@@ -76,50 +74,164 @@
       </div>
 
       <div class="col-12">
-      <div class="table-responsive">
-        <table class="table table-hover">
-          <thead class="table-dark">
-            <tr>
-              <th scope="col">Codigo</th>
-              <th scope="col">Imagen</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Apellido</th>
-              <th scope="col">Tipo de documento</th>
-              <th scope="col">Numero de documento</th>
-              <th scope="col">Estado</th>
-              <th scope="col">Genero</th>
-              <th scope="col">Editar</th>
-              <th scope="col">Inabilitar</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              *ngFor="let estudiante of res | paginate: {itemsPerPage:itemsPerPage, currentPage:paginaActual}; let i =index">
-              <th scope="row">{{estudiante.codigo}}</th>
-              <td><img [src]="estudiante.pathPresigned?estudiante.pathPresigned:''" alt="" width="150" height="150"></td>
-              <td>{{estudiante.nombre}}</td>
-              <td>{{estudiante.apellido}}</td>
-              <td>{{estudiante.tipo_documento}}</td>
-              <td>{{estudiante.numero_documento}}</td>
-              <td>{{estudiante.estado}}</td>
-              <td>{{estudiante.genero}}</td>
-              <td><button type="button" class="btn btn-primary" (click)="selectStudent(i); goTomod()">Editar</button></td>
-              <td><button type="button" class="btn btn-danger">Inabilitar</button></td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">Codigo</th>
+                <th scope="col">Imagen</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Tipo de documento</th>
+                <th scope="col">Numero de documento</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Genero</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Inabilitar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- <tr *ngFor="let student of res" (click)="selectStudent (student)"> -->
+              <tr
+                *ngFor="let estudiante of res | paginate: {itemsPerPage:itemsPerPage, currentPage:paginaActual}; let i =index">
+                <th scope="row">{{estudiante.codigo}}</th>
+                <td><img [src]="estudiante.pathPresigned?estudiante.pathPresigned:''" alt="" width="150" height="150"></td>
+                <td>{{estudiante.nombre}}</td>
+                <td>{{estudiante.apellido}}</td>
+                <td>{{estudiante.tipo_documento}}</td>
+                <td>{{estudiante.numero_documento}}</td>
+                <td>{{estudiante.estado}}</td>
+                <td>{{estudiante.genero}}</td>
+                <!-- <td><button type="button" class="btn btn-primary" (click)="selectStudent(i); goTomod()">Editar</button>  -->
+                <td><button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#modificar-estudiante" (click)="selectStudent(estudiante);">Editar</button> 
+                </td>
+                 <td><button type="button" class="btn btn-danger" (click)="disable_state(estudiante)">Inabilitar</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
+
+      <div class="col-12">
+        <div class="pagination">
+          <div class="">Pagina {{paginaActual}} de {{totalPaginas}}</div>
+          <div class=" "><pagination-controls (pageChange)="paginaActual = $event"
+              [responsive]="true"></pagination-controls>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="col-12">
-      <div class="pagination">
-        <div class="">Pagina {{paginaActual}} de {{totalPaginas}}</div>
-        <div class=" "><pagination-controls (pageChange)="paginaActual = $event"
-            [responsive]="true"></pagination-controls>
+  </div>
+  </body>
+  
+  
+  <!-- Modal -->
+  <div class="modal fade" id="modificar-estudiante" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Actualizar Estudiante</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        
+        <div class="modal-body">
+          <form [formGroup]="fmRcurso" (submit)="onSubmit()" id ="frmRcursoOne" >
+            <fieldset>
+              <!-- <legend>Disabled fieldset example</legend> -->
+              <div class="mb-3">
+                <label for="codigo" class="form-label">Codigo estudiantil</label>
+                <input type="text" formControlName="codigo"  id="codigo" class="form-control" readonly>
+
+                <div class="alert alert-danger" *ngIf="fmRcurso.controls['codigo'].invalid && fmRcurso.controls['codigo'].touched">
+                  <div *ngIf="fmRcurso.controls['codigo'].errors?.['required']">El codigo es obligatoio </div>
+                  <div *ngIf="fmRcurso.controls['codigo'].errors?.['minlength']">Debe tener alamenos 5 numeros</div>  
+                </div>
+
+              </div>
+
+              <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text"  id="nombre" formControlName="nombre"  class="form-control" placeholder="Disabled input">
+
+                <div class="alert alert-danger" *ngIf="fmRcurso.controls['nombre'].invalid && fmRcurso.controls['nombre'].touched">
+                  <div *ngIf="fmRcurso.controls['nombre'].errors?.['required']">El nombre es obligatoio </div>
+                  <div *ngIf="fmRcurso.controls['nombre'].errors?.['pattern']">No se aceptan numeros</div>  
+                </div>
+
+                
+              </div>
+
+              <div class="mb-3">
+                <label for="apellido" class="form-label">Apellido</label>
+                <input type="text"  id="apellido" formControlName="apellido"  class="form-control" placeholder="Disabled input">
+                <div class="alert alert-danger" *ngIf="fmRcurso.controls['apellido'].invalid && fmRcurso.controls['apellido'].touched">
+                  <div *ngIf="fmRcurso.controls['apellido'].errors?.['required']">El apellido es obligatoio </div>
+                  <div *ngIf="fmRcurso.controls['apellido'].errors?.['pattern']">No se aceptan numeros</div>  
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="genero" class="form-label">Genero</label>
+                <select id="genero" formControlName="genero"   class="form-select">
+                  <option value="F">Femenino</option>
+                  <option value="M">Masculino</option>
+                  <option value="o">Otro</option>
+                  <option value="p">Prefiero no decirlo</option>
+                </select>
+                <div class="alert alert-danger" *ngIf="fmRcurso.controls['genero'].invalid && fmRcurso.controls['genero'].touched">
+                  <div *ngIf="fmRcurso.controls['genero'].errors?.['required']">El Genero es obligatoio </div>
+                </div>
+
+              </div>
+
+              <div class="mb-3">
+                <label for="tipo_documento" class="form-label">Tipo de Documento</label>
+                <select id="tipo_documento"  formControlName="tipo_documento" class="form-select">
+                  <option value="CC">Cédula de Ciudadanía</option>
+                  <option value="TI">Tarjeta de Identidad</option>
+                  <option value="CE">Cédula de Extranjería</option>
+                </select>
+                <div class="alert alert-danger" *ngIf="fmRcurso.controls['tipo_documento'].invalid && fmRcurso.controls['tipo_documento'].touched">
+                  <div *ngIf="fmRcurso.controls['tipo_documento'].errors?.['required']">campo obligatoio </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="numero_documento" class="form-label">Numero de Docuemento</label>
+                <input type="text"  formControlName="numero_documento"  id="numero_documento" class="form-control" placeholder="Disabled input">
+                
+                <div class="alert alert-danger" *ngIf="fmRcurso.controls['numero_documento'].invalid && fmRcurso.controls['numero_documento'].touched">
+                  <div *ngIf="fmRcurso.controls['numero_documento'].errors?.['required']">Campo obligatorio</div>
+                </div>
+
+              </div>
+
+              <div class="mb-3">
+                <label for="estado" class="form-label">Estado</label>
+                <select id="estado"  formControlName="estado"  class="form-select">
+                  <option value="A">Estudiante Activo</option>
+                  <option value="R">Estudiante Retirado</option>
+                  <option value="E">Estudiante Egresado</option>
+                  <option value="S">Estudiante Suspendido</option>
+                </select>
+                <div class="alert alert-danger" *ngIf="fmRcurso.controls['estado'].invalid && fmRcurso.controls['estado'].touched">
+                  <div *ngIf="fmRcurso.controls['estado'].errors?.['required']">Estado obligatoio </div>
+                </div>
+              </div>
+             
+            </fieldset>
+          </form>
+          {{fmRcurso.status}}
+  
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cerrar</button>
+          <button type="submit" form ="frmRcursoOne" class="btn btn-primary" [disabled] ="!fmRcurso.valid">Guardar </button>
         </div>
       </div>
     </div>
   </div>
-  </div>
-</body>
-

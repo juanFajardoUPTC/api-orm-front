@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicioEstudiantesService } from 'src/app/services/servicio-estudiantes.service';
 import { Router } from '@angular/router';
-import { FormGroup ,FormBuilder, Validators} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Estudiante } from '../estudiante.model';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -22,36 +23,37 @@ export class TablaEstudiantesComponent implements OnInit {
   columna = 'codigo'
   busqueda = ''
   fmRcurso: FormGroup;
-  selected_student:any;
+  selected_student: any;
   model = new Estudiante(2023, "", "", "", "", "", "");
-  model1:any;
+  model1: any;
 
-  
+
   constructor(
     private servicioEstudiantes: ServicioEstudiantesService,
-     private router: Router,
-     private formBuilder: FormBuilder
-  
-     ) {
-      this.fmRcurso = this.formBuilder.group({
-        codigo:['',[Validators.required,Validators.minLength(5)]],
-        nombre: ['', [Validators.required, Validators.pattern('^[A-Za-z]+$')]],
-        apellido:['',[Validators.required, Validators.pattern('^[A-Za-z]+$')]],
-        genero:['',[Validators.required]],
-        numero_documento:['',[Validators.required]],
-        tipo_documento:['',[Validators.required]],
-        estado:['',[Validators.required]],
-      })
-      }
-  
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService
+
+  ) {
+    this.fmRcurso = this.formBuilder.group({
+      codigo: ['', [Validators.required, Validators.minLength(5)]],
+      nombre: ['', [Validators.required, Validators.pattern('^[A-Za-z]+$')]],
+      apellido: ['', [Validators.required, Validators.pattern('^[A-Za-z]+$')]],
+      genero: ['', [Validators.required]],
+      numero_documento: ['', [Validators.required]],
+      tipo_documento: ['', [Validators.required]],
+      estado: ['', [Validators.required]],
+    })
+  }
+
 
   ngOnInit(): void {
     this.servicioEstudiantes.getRequest(this.columna, this.ordenamiento, this.busqueda).subscribe(data => {
       console.log('Data', data);
-      if(data['estudiantes'])
-      this.res = data['estudiantes']
+      if (data['estudiantes'])
+        this.res = data['estudiantes']
       else
-      this.res = data
+        this.res = data
       this.contarPaginas()
 
     }, error => {
@@ -71,7 +73,7 @@ export class TablaEstudiantesComponent implements OnInit {
       this.ordenamiento = event
       if (this.ordenamiento == 'Ascendente')
         this.ordenamiento = 'asc'
-        else
+      else
         this.ordenamiento = 'desc'
 
     }
@@ -83,21 +85,17 @@ export class TablaEstudiantesComponent implements OnInit {
 
     this.servicioEstudiantes.getRequest(this.columna, this.ordenamiento, this.busqueda).subscribe(data => {
       console.log('Data', data);
-      if(data['estudiantes'])
-      this.res = data['estudiantes']
+      if (data['estudiantes'])
+        this.res = data['estudiantes']
       else
-      this.res = data
+        this.res = data
       this.contarPaginas()
-
     }, error => {
       console.log('ERROR', error);
     });
-
     this.contarPaginas()
   }
-
   llenarLista() {
-
   }
   contarPaginas() {
     this.totalPaginas = 0
@@ -135,35 +133,29 @@ export class TablaEstudiantesComponent implements OnInit {
     });
   }
 
-  disable_state(student: any){
-    const student_disable_state = { codigo: student.codigo,estado: student ='I'};
-
-
-    //this.servicioEstudiantes.patchRequest(student_disable_state ).
-
-
-    this.servicioEstudiantes.patchRequest(student_disable_state ).subscribe(
-      (      respuesta: any) => {
-        // Manejar la respuesta exitosa aquí
+  disable_state(student: any) {
+    const student_disable_state = { codigo: student.codigo, estado: student = 'I' };
+    this.servicioEstudiantes.patchRequest(student_disable_state).subscribe(
+      (respuesta: any) => {
+        this.toastr.success(`El estudiante ${this.model1.nombre}  fue Inhabilitado`, 'Etudiante Inhabilitado' );
         console.log(respuesta);
       },
       error => {
-        // Manejar el error aquí
-        console.error("error al hinabilitar" ,error );
+        console.error("error al hinabilitar", error);
+        this.toastr.error(`Error al Inhabilitar el Estudiante ${this.model1.nombre}`, 'Error al Inhabilitar Estudiante');
       }
     );
   }
-  
 
   updateStudent() {
-   this.servicioEstudiantes.putRequest(this.model1) .subscribe(
-      (      respuesta: any) => {
-        // Manejar la respuesta exitosa aquí
+    this.servicioEstudiantes.putRequest(this.model1).subscribe(
+      (respuesta: any) => {
+        this.toastr.success(`El estudiante ${this.model1.nombre} se actualizó correctamente`, 'Estudiante actualizado');
         console.log(respuesta);
       },
       error => {
-        // Manejar el error aquí
-        console.error(error);
+        this.toastr.success(`No se Logro Actualizar el estudiante ${this.model1.nombre}`,'Error al Actualizar');
+        console.error("Error al altualizar estudiante",error);
       }
     );
     console.log(this.model1);
@@ -173,23 +165,20 @@ export class TablaEstudiantesComponent implements OnInit {
     this.router.navigate(['/estudiantes/modificar-estudiante']);
   }
 
-
-
-
-  onSubmit(){
-   console.log("se carga de datos")
+  onSubmit() {
+    console.log("se carga de datos")
     this.model1 = new Estudiante(
-      this.fmRcurso.value.codigo, 
-      this.fmRcurso.value.nombre, 
-      this.fmRcurso.value.apellido, 
-      this.fmRcurso.value.tipo_documento, 
-      this.fmRcurso.value.numero_documento, 
-      this.fmRcurso.value.estado, 
+      this.fmRcurso.value.codigo,
+      this.fmRcurso.value.nombre,
+      this.fmRcurso.value.apellido,
+      this.fmRcurso.value.tipo_documento,
+      this.fmRcurso.value.numero_documento,
+      this.fmRcurso.value.estado,
       this.fmRcurso.value.genero,
-      "");
-      this.updateStudent();
-      
-     
+      "https://cdn-icons-png.flaticon.com/512/3059/3059518.png");
+    this.updateStudent();
+
+
 
   }
 

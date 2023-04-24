@@ -12,6 +12,7 @@ import { ModificarEstudianteComponent } from './modificar-estudiante/modificar-e
 import { NgxDropzoneModule } from 'ngx-dropzone';
 
 
+
 @NgModule({
   declarations: [
     EstudiantesComponent,
@@ -25,8 +26,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-    NgxDropzoneModule
-
+    NgxDropzoneModule,
+ 
   ]
 })
 export class EstudiantesModule { }

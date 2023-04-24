@@ -47,10 +47,4 @@ export class ServicioEstudiantesService {
     http.patch('https://rzv75m7ksk.execute-api.us-east-2.amazonaws.com/students/cambiar-estado',body,{'headers':headers});
   }
 
-/*
-  cambiarEstado(codigo: number): Observable<any> {
-    const estudiante = { codigo: codigo, estado: 'I' };
-    return this.http.patch(url, estudiante);
-  }*/
-
 }

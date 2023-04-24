@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Estudiante } from '../estudiante.model';
 import { NgForm } from '@angular/forms';
 import { ServicioEstudiantesService } from 'src/app/services/servicio-estudiantes.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -17,11 +18,14 @@ export class AgregarEstudianteComponent implements OnInit {
   
 
   res:any
-  model = new Estudiante(2023, "", "", "", "", "", "");
+  model = new Estudiante(2023, "", "", "", "", "", "","https://cdn-icons-png.flaticon.com/512/3059/3059518.png");
   imagenSeleccionada = false
 
 
-  constructor(private servicioEstudiantes: ServicioEstudiantesService) { }
+  constructor(
+    private servicioEstudiantes: ServicioEstudiantesService ,
+    private toastr: ToastrService) {
+   }
 
   ngOnInit(): void {
 
@@ -58,15 +62,15 @@ export class AgregarEstudianteComponent implements OnInit {
   addStudent() {
     this.servicioEstudiantes.postRequest(this.model).subscribe(
       (      respuesta: any) => {
-        // Manejar la respuesta exitosa aquí
         console.log(respuesta);
+        this.toastr.success('El estudiante se Registro corrctamente','Registro Correcto');
       },
       error => {
-        // Manejar el error aquí
         console.error(error);
+        this.toastr.error('Error al Registrar estudiante','Error de Registro');
       }
     );
-    console.log(this.model);
+    console.log("el estudiante a registrar es: " , this.model);
   }
 
 }

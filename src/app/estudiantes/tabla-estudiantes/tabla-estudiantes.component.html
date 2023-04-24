@@ -142,6 +142,13 @@
           <form [formGroup]="fmRcurso" (submit)="onSubmit()" id ="frmRcursoOne" >
             <fieldset>
               <!-- <legend>Disabled fieldset example</legend> -->
+              <ngx-dropzone (change)="onSelect($event)"  name = rostro  accept="image/*" [multiple]="false" [maxFileSize]="15000000">
+                <ngx-dropzone-label>Arrastre aca la imagen o haz click aqui </ngx-dropzone-label>
+                <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"
+                    [removable]="true" (removed)="onRemove(f)">
+                    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                </ngx-dropzone-image-preview>
+            </ngx-dropzone>
               <div class="mb-3">
                 <label for="codigo" class="form-label">Codigo estudiantil</label>
                 <input type="text" formControlName="codigo"  id="codigo" class="form-control" readonly>

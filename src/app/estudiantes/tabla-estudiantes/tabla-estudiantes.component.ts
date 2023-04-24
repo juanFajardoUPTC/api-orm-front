@@ -26,6 +26,10 @@ export class TablaEstudiantesComponent implements OnInit {
   model = new Estudiante(2023, "", "", "", "", "", "");
   model1:any;
 
+  imagenSeleccionada = false
+  files: File[] = [];
+  fileSelected:any;
+
   
   constructor(
     private servicioEstudiantes: ServicioEstudiantesService,
@@ -55,6 +59,7 @@ export class TablaEstudiantesComponent implements OnInit {
 
       for (const iterator of this.res) {
       
+        if(iterator.path)
         this.servicioEstudiantes.getImg({
           "object_name": iterator.path,
           "expiration": 3600,
@@ -149,6 +154,7 @@ export class TablaEstudiantesComponent implements OnInit {
       numero_documento: this.selected_student.numero_documento,
       tipo_documento: this.selected_student.tipo_documento,
       estado: this.selected_student.estado,
+      //path:this.selected_student.path,
     });
   }
 
@@ -191,28 +197,29 @@ export class TablaEstudiantesComponent implements OnInit {
   }
 
 
-  getImagenes(path:string){
-    for (const iterator of this.res) {
+  // putImagenes(path:string){
+    
       
-      this.servicioEstudiantes.getImg({
-        "object_name": path,
-        "expiration": 3600,
-        "method": "GET"
-      }).subscribe(res=>{
-        console.log('RESPUESTA',res);
+  //     this.servicioEstudiantes.getImg({
+  //       "object_name": path,
+  //       "expiration": 3600,
+  //       "method": "PUT"
+  //     }).subscribe(res=>{
+  //       console.log('RESPUESTA',res);
   
-      let aux = JSON.parse(res['body'])
-      console.log('AUX',aux['event_s']);
+  //     let aux = JSON.parse(res['body'])
+  //     console.log('AUX',aux['event_s']);
   
-        iterator.path = aux['event_s']
+  //       iterator.pathPresigned = aux['event_s']
   
-      })
-    }
-  }
+  //     })
+    
+  // }
 
 
   onSubmit(){
    console.log("se carga de datos")
+   this.putImagen()
     this.model1 = new Estudiante(
       this.fmRcurso.value.codigo, 
       this.fmRcurso.value.nombre, 
@@ -221,11 +228,69 @@ export class TablaEstudiantesComponent implements OnInit {
       this.fmRcurso.value.numero_documento, 
       this.fmRcurso.value.estado, 
       this.fmRcurso.value.genero,
-      "");
+      this.getStringDate()+'/' + this.fmRcurso.value.codigo);
       this.updateStudent();
       
      
 
+  }
+
+
+  onSelect(event: any) {
+    const file = event.addedFiles[0];
+    this.fileSelected = file;
+
+    if (this.files.length > 0) {
+      this.files.splice(0, 1);
+    }
+    this.files.push(file);
+    this.imagenSeleccionada = true;
+  }
+  onRemove(event:any) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
+  }
+
+
+  putImagen(){
+
+
+    this.servicioEstudiantes.getImg({
+      "object_name": this.getStringDate()+'/' + this.fmRcurso.value.codigo,
+      "expiration": 3600,
+      "method": "PUT",
+    }).subscribe(res=>{
+      let body = JSON.parse(res['body']);
+      let url = body['event_s']
+      console.log('URL PUT',url);
+      console.log(this.getStringDate()+'/' + this.fmRcurso.value.codigo);
+      console.log(this.fileSelected);
+      
+      
+
+this.servicioEstudiantes.UploadPresigned(url,this.fileSelected).subscribe(
+  (resPresigned: any) => {
+    console.log(resPresigned);
+    alert('La imagen fue subida con exito')
+  }
+);
+
+    })
+
+  }
+
+  getStringDate(){
+    var d = new Date(),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+
+if (month.length < 2) 
+    month = '0' + month;
+if (day.length < 2) 
+    day = '0' + day;
+
+return [year, month, day].join('-');
   }
 
 }

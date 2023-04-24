@@ -60,6 +60,7 @@ export class AgregarEstudianteComponent implements OnInit {
   }
   
   addStudent() {
+    this.model.path = this.getStringDate()+'/' + this.model.codigo,
     this.servicioEstudiantes.postRequest(this.model).subscribe(
       (      respuesta: any) => {
         // Manejar la respuesta exitosa aquí
@@ -79,7 +80,7 @@ export class AgregarEstudianteComponent implements OnInit {
 
 
     this.servicioEstudiantes.getImg({
-      "object_name": this.getStringDate()+'/',
+      "object_name": this.getStringDate()+'/' + this.model.codigo,
       "expiration": 3600,
       "method": "PUT",
     }).subscribe(res=>{

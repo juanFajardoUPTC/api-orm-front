@@ -95,7 +95,12 @@
               <tr
                 *ngFor="let estudiante of res | paginate: {itemsPerPage:itemsPerPage, currentPage:paginaActual}; let i =index">
                 <th scope="row">{{estudiante.codigo}}</th>
-                <td><img [src]="estudiante.pathPresigned?estudiante.pathPresigned:''" alt="" width="150" height="150"></td>
+                <td>
+                  <div class="image-cropper">
+
+                    <img [src]="estudiante.pathPresigned?estudiante.pathPresigned:''" alt="" width="150" height="150">
+                  </div>
+                </td>
                 <td>{{estudiante.nombre}}</td>
                 <td>{{estudiante.apellido}}</td>
                 <td>{{estudiante.tipo_documento}}</td>

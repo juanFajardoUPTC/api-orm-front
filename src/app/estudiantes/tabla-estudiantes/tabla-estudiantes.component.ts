@@ -272,6 +272,7 @@ this.servicioEstudiantes.UploadPresigned(url,this.fileSelected).subscribe(
   (resPresigned: any) => {
     console.log(resPresigned);
     alert('La imagen fue subida con exito')
+   // this.router.navigate(['/home'])
   }
 );
 

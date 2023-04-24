@@ -29,5 +29,7 @@ this.servicioEstudiantes.getRequest().subscribe(data => {
   }
   selectStudent(student: any) {
     this.onSelect.emit(student);
+    console.log (student.nombre)
+    student.nombre
   }
 }

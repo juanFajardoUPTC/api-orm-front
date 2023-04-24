@@ -9,7 +9,6 @@
     <h1 class="d-flex justify-content-center">Lista de Estudiantes</h1>
     <br>
     <br>
-
     <div class="row g-3 mt-3">
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div class="input-group mb-3 ">
@@ -91,6 +90,7 @@
               </tr>
             </thead>
             <tbody>
+              <!-- <tr *ngFor="let student of res" (click)="selectStudent (student)"> -->
               <tr
                 *ngFor="let estudiante of res | paginate: {itemsPerPage:itemsPerPage, currentPage:paginaActual}; let i =index">
                 <th scope="row">{{estudiante.codigo}}</th>
@@ -101,9 +101,9 @@
                 <td>{{estudiante.estado}}</td>
                 <td>{{estudiante.genero}}</td>
                 <!-- <td><button type="button" class="btn btn-primary" (click)="selectStudent(i); goTomod()">Editar</button>  -->
-                <td><button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#modificar-estudiante" (click)="selectStudent(i);">Editar</button> 
+                <td><button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#modificar-estudiante" (click)="selectStudent(estudiante);">Editar</button> 
                 </td>
-                <td><button type="button" class="btn btn-danger">Inabilitar</button></td>
+                 <td><button type="button" class="btn btn-danger" (click)="disable_state(estudiante)">Inabilitar</button></td>
               </tr>
             </tbody>
           </table>
@@ -142,17 +142,34 @@
               <!-- <legend>Disabled fieldset example</legend> -->
               <div class="mb-3">
                 <label for="codigo" class="form-label">Codigo estudiantil</label>
-                <input type="text" formControlName="codigo"  id="codigo" class="form-control">
+                <input type="text" formControlName="codigo"  id="codigo" class="form-control" readonly>
+
+                <div class="alert alert-danger" *ngIf="fmRcurso.controls['codigo'].invalid && fmRcurso.controls['codigo'].touched">
+                  <div *ngIf="fmRcurso.controls['codigo'].errors?.['required']">El codigo es obligatoio </div>
+                  <div *ngIf="fmRcurso.controls['codigo'].errors?.['minlength']">Debe tener alamenos 5 numeros</div>  
+                </div>
+
               </div>
 
               <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
                 <input type="text"  id="nombre" formControlName="nombre"  class="form-control" placeholder="Disabled input">
+
+                <div class="alert alert-danger" *ngIf="fmRcurso.controls['nombre'].invalid && fmRcurso.controls['nombre'].touched">
+                  <div *ngIf="fmRcurso.controls['nombre'].errors?.['required']">El nombre es obligatoio </div>
+                  <div *ngIf="fmRcurso.controls['nombre'].errors?.['pattern']">No se aceptan numeros</div>  
+                </div>
+
+                
               </div>
 
               <div class="mb-3">
                 <label for="apellido" class="form-label">Apellido</label>
                 <input type="text"  id="apellido" formControlName="apellido"  class="form-control" placeholder="Disabled input">
+                <div class="alert alert-danger" *ngIf="fmRcurso.controls['apellido'].invalid && fmRcurso.controls['apellido'].touched">
+                  <div *ngIf="fmRcurso.controls['apellido'].errors?.['required']">El apellido es obligatoio </div>
+                  <div *ngIf="fmRcurso.controls['apellido'].errors?.['pattern']">No se aceptan numeros</div>  
+                </div>
               </div>
 
               <div class="mb-3">
@@ -163,6 +180,10 @@
                   <option value="o">Otro</option>
                   <option value="p">Prefiero no decirlo</option>
                 </select>
+                <div class="alert alert-danger" *ngIf="fmRcurso.controls['genero'].invalid && fmRcurso.controls['genero'].touched">
+                  <div *ngIf="fmRcurso.controls['genero'].errors?.['required']">El Genero es obligatoio </div>
+                </div>
+
               </div>
 
               <div class="mb-3">
@@ -172,11 +193,19 @@
                   <option value="TI">Tarjeta de Identidad</option>
                   <option value="CE">Cédula de Extranjería</option>
                 </select>
+                <div class="alert alert-danger" *ngIf="fmRcurso.controls['tipo_documento'].invalid && fmRcurso.controls['tipo_documento'].touched">
+                  <div *ngIf="fmRcurso.controls['tipo_documento'].errors?.['required']">campo obligatoio </div>
+                </div>
               </div>
 
               <div class="mb-3">
                 <label for="numero_documento" class="form-label">Numero de Docuemento</label>
                 <input type="text"  formControlName="numero_documento"  id="numero_documento" class="form-control" placeholder="Disabled input">
+                
+                <div class="alert alert-danger" *ngIf="fmRcurso.controls['numero_documento'].invalid && fmRcurso.controls['numero_documento'].touched">
+                  <div *ngIf="fmRcurso.controls['numero_documento'].errors?.['required']">Campo obligatorio</div>
+                </div>
+
               </div>
 
               <div class="mb-3">
@@ -187,20 +216,19 @@
                   <option value="E">Estudiante Egresado</option>
                   <option value="S">Estudiante Suspendido</option>
                 </select>
+                <div class="alert alert-danger" *ngIf="fmRcurso.controls['estado'].invalid && fmRcurso.controls['estado'].touched">
+                  <div *ngIf="fmRcurso.controls['estado'].errors?.['required']">Estado obligatoio </div>
+                </div>
               </div>
-              
-
-           
-            
-         
-              <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+             
             </fieldset>
           </form>
+          {{fmRcurso.status}}
   
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cerrar</button>
-          <button type="submit" form ="frmRcursoOne" class="btn btn-primary">Guardar</button>
+          <button type="submit" form ="frmRcursoOne" class="btn btn-primary" [disabled] ="!fmRcurso.valid">Guardar </button>
         </div>
       </div>
     </div>

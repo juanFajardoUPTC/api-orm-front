@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicioEstudiantesService } from 'src/app/services/servicio-estudiantes.service';
 import { Router } from '@angular/router';
-import { FormGroup ,FormBuilder} from '@angular/forms';
+import { FormGroup ,FormBuilder, Validators} from '@angular/forms';
+import { Estudiante } from '../estudiante.model';
 
 
 @Component({
@@ -9,8 +10,9 @@ import { FormGroup ,FormBuilder} from '@angular/forms';
   templateUrl: './tabla-estudiantes.component.html',
   styleUrls: ['./tabla-estudiantes.component.scss']
 })
-export class TablaEstudiantesComponent implements OnInit {
 
+
+export class TablaEstudiantesComponent implements OnInit {
   res: any = [];
   students: any[] = [];
   paginaActual = 1
@@ -20,30 +22,28 @@ export class TablaEstudiantesComponent implements OnInit {
   columna = 'codigo'
   busqueda = ''
   fmRcurso: FormGroup;
+  selected_student:any;
+  model = new Estudiante(2023, "", "", "", "", "", "");
+  model1:any;
+
   
   constructor(
     private servicioEstudiantes: ServicioEstudiantesService,
      private router: Router,
-    private formBuilder: FormBuilder,
-    private fb:FormBuilder
-
-
+     private formBuilder: FormBuilder
+  
      ) {
-      this.fmRcurso =this.fb.group({
-        codigo:['2018'],
-        nombre:[''],
-        apellido:['555'],
-        genero:[''],
-        numero_documento:['555'],
-        tipo_documento:[''],
-        estado:[''],
-        
+      this.fmRcurso = this.formBuilder.group({
+        codigo:['',[Validators.required,Validators.minLength(5)]],
+        nombre: ['', [Validators.required, Validators.pattern('^[A-Za-z]+$')]],
+        apellido:['',[Validators.required, Validators.pattern('^[A-Za-z]+$')]],
+        genero:['',[Validators.required]],
+        numero_documento:['',[Validators.required]],
+        tipo_documento:['',[Validators.required]],
+        estado:['',[Validators.required]],
       })
-
-
       }
   
-
 
   ngOnInit(): void {
     this.servicioEstudiantes.getRequest(this.columna, this.ordenamiento, this.busqueda).subscribe(data => {
@@ -121,13 +121,53 @@ export class TablaEstudiantesComponent implements OnInit {
     }
   }
 
-  selectStudent(index: number) {
-    const selectedStudent = this.students[index];
-    console.log('Estudiante', selectedStudent);
-    window.sessionStorage.setItem('selectedStudent', JSON.stringify(selectedStudent));
 
+  selectStudent(student: any) {
+    this.selected_student = student;
+    this.fmRcurso.setValue({
+      codigo: this.selected_student.codigo,
+      nombre: this.selected_student.nombre,
+      apellido: this.selected_student.apellido,
+      genero: this.selected_student.genero,
+      numero_documento: this.selected_student.numero_documento,
+      tipo_documento: this.selected_student.tipo_documento,
+      estado: this.selected_student.estado,
+    });
   }
 
+  disable_state(student: any){
+    const student_disable_state = { codigo: student.codigo,estado: student ='I'};
+
+
+    //this.servicioEstudiantes.patchRequest(student_disable_state ).
+
+
+    this.servicioEstudiantes.patchRequest(student_disable_state ).subscribe(
+      (      respuesta: any) => {
+        // Manejar la respuesta exitosa aquí
+        console.log(respuesta);
+      },
+      error => {
+        // Manejar el error aquí
+        console.error("error al hinabilitar" ,error );
+      }
+    );
+  }
+  
+
+  updateStudent() {
+   this.servicioEstudiantes.putRequest(this.model1) .subscribe(
+      (      respuesta: any) => {
+        // Manejar la respuesta exitosa aquí
+        console.log(respuesta);
+      },
+      error => {
+        // Manejar el error aquí
+        console.error(error);
+      }
+    );
+    console.log(this.model1);
+  }
 
   goTomod() {
     this.router.navigate(['/estudiantes/modificar-estudiante']);
@@ -137,7 +177,20 @@ export class TablaEstudiantesComponent implements OnInit {
 
 
   onSubmit(){
-    alert("funciona")
+   console.log("se carga de datos")
+    this.model1 = new Estudiante(
+      this.fmRcurso.value.codigo, 
+      this.fmRcurso.value.nombre, 
+      this.fmRcurso.value.apellido, 
+      this.fmRcurso.value.tipo_documento, 
+      this.fmRcurso.value.numero_documento, 
+      this.fmRcurso.value.estado, 
+      this.fmRcurso.value.genero,
+      "");
+      this.updateStudent();
+      
+     
+
   }
 
 }

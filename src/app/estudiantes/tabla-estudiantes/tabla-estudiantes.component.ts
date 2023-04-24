@@ -3,6 +3,7 @@ import { ServicioEstudiantesService } from 'src/app/services/servicio-estudiante
 import { Router } from '@angular/router';
 import { FormGroup ,FormBuilder, Validators} from '@angular/forms';
 import { Estudiante } from '../estudiante.model';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -34,7 +35,8 @@ export class TablaEstudiantesComponent implements OnInit {
   constructor(
     private servicioEstudiantes: ServicioEstudiantesService,
      private router: Router,
-     private formBuilder: FormBuilder
+     private formBuilder: FormBuilder,
+     private toastr: ToastrService
   
      ) {
       this.fmRcurso = this.formBuilder.group({
@@ -158,34 +160,29 @@ export class TablaEstudiantesComponent implements OnInit {
     });
   }
 
+
   disable_state(student: any){
     const student_disable_state = { codigo: student.codigo,estado: student ='I'};
-
-
-    //this.servicioEstudiantes.patchRequest(student_disable_state ).
-
-
     this.servicioEstudiantes.patchRequest(student_disable_state ).subscribe(
-      (      respuesta: any) => {
-        // Manejar la respuesta exitosa aquí
+      ( respuesta: any) => {
+        this.toastr.success(`El estudiante  fue Inhabilitado`, 'Etudiante Inhabilitado' );
         console.log(respuesta);
       },
       error => {
-        // Manejar el error aquí
-        console.error("error al hinabilitar" ,error );
+        console.error("error al hinabilitar", error);
+        this.toastr.error(`Error al Inhabilitar el Estudiante`, 'Error al Inhabilitar Estudiante');
       }
     );
   }
-  
 
   updateStudent() {
    this.servicioEstudiantes.putRequest(this.model1) .subscribe(
       (      respuesta: any) => {
-        // Manejar la respuesta exitosa aquí
+        this.toastr.success(`El estudiante ${this.model1.nombre} se actualizó correctamente`, 'Estudiante actualizado');
         console.log(respuesta);
       },
       error => {
-        // Manejar el error aquí
+        this.toastr.success(`No se Logro Actualizar el estudiante ${this.model1.nombre}`,'Error al Actualizar');
         console.error(error);
       }
     );
@@ -230,9 +227,6 @@ export class TablaEstudiantesComponent implements OnInit {
       this.fmRcurso.value.genero,
       this.getStringDate()+'/' + this.fmRcurso.value.codigo);
       this.updateStudent();
-      
-     
-
   }
 
 

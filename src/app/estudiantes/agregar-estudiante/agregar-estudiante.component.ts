@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Estudiante } from '../estudiante.model';
 import { NgForm } from '@angular/forms';
 import { ServicioEstudiantesService } from 'src/app/services/servicio-estudiantes.service';
-
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -23,7 +23,7 @@ export class AgregarEstudianteComponent implements OnInit {
   fileSelected:any;
 
 
-  constructor(private servicioEstudiantes: ServicioEstudiantesService) { }
+  constructor(private servicioEstudiantes: ServicioEstudiantesService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
 
@@ -63,13 +63,15 @@ export class AgregarEstudianteComponent implements OnInit {
     this.model.path = this.getStringDate()+'/' + this.model.codigo,
     this.servicioEstudiantes.postRequest(this.model).subscribe(
       (      respuesta: any) => {
-        // Manejar la respuesta exitosa aquí
         this.putImagen();
+        this.toastr.success('El estudiante se Registro corrctamente','Registro Correcto');
         console.log(respuesta);
+       
       },
       error => {
-        // Manejar el error aquí
+        this.toastr.error('Error al Registrar estudiante','Error de Registro');
         console.error(error);
+        
       }
     );
     console.log(this.model);
@@ -77,8 +79,6 @@ export class AgregarEstudianteComponent implements OnInit {
 
   //putImagen(event:any){
     putImagen(){
-
-
     this.servicioEstudiantes.getImg({
       "object_name": this.getStringDate()+'/' + this.model.codigo,
       "expiration": 3600,

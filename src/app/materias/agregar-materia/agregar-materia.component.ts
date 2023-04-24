@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Materia } from '../materia.model';
 import { NgForm } from '@angular/forms';
 import { ServicioMateriasService } from 'src/app/services/servicio-materias.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-agregar-materia',
@@ -13,7 +14,7 @@ export class AgregarMateriaComponent implements OnInit {
   
   model = new Materia(810, "", 0, "");
 
-  constructor(private servicioMaterias: ServicioMateriasService) { }
+  constructor(private servicioMaterias: ServicioMateriasService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -24,11 +25,11 @@ export class AgregarMateriaComponent implements OnInit {
   addSubject() {
     this.servicioMaterias.postRequest(this.model).subscribe(
       (respuesta: any) => {
-        // Manejar la respuesta exitosa aquí
+        this.toastr.success('La Materia sese Registro corrctamente','Registro Correcto');
         console.log(respuesta);
       },
       error => {
-        // Manejar el error aquí
+        this.toastr.error('Error al Registrar La materia','Error de Registro');
         console.error(error);
       }
     );

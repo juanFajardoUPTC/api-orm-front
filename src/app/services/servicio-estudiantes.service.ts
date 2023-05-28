@@ -20,7 +20,7 @@ export class ServicioEstudiantesService {
     queryParams = queryParams.append("columna",columna);
     queryParams = queryParams.append("ordenamiento",ordenamiento);
     queryParams = queryParams.append("busqueda",busqueda);
-    return this.http.get('https://rzv75m7ksk.execute-api.us-east-2.amazonaws.com/students',{params:queryParams});
+    return this.http.get('https://pytq1gi31b.execute-api.us-east-2.amazonaws.com/students',{params:queryParams});
     //return this.http.get('/estudiantes',{params:queryParams}); 
     
   }
@@ -30,7 +30,7 @@ export class ServicioEstudiantesService {
     let headers = new HttpHeaders({
       'content-type': 'application/json',
     })
-    return this.http.post('https://rzv75m7ksk.execute-api.us-east-2.amazonaws.com/students/agregar',body,{'headers':headers}); 
+    return this.http.post('https://pytq1gi31b.execute-api.us-east-2.amazonaws.com/students/agregar',body,{'headers':headers}); 
    // return this.http.post('/estudiantes/agregar',body,{'headers':headers});
   }
 
@@ -38,7 +38,7 @@ export class ServicioEstudiantesService {
     let headers = new HttpHeaders({
       'content-type': 'application/json',
     })
-    return this.http.put(' https://rzv75m7ksk.execute-api.us-east-2.amazonaws.com/students/actualizar',body,{'headers':headers});
+    return this.http.put(' https://pytq1gi31b.execute-api.us-east-2.amazonaws.com/students/actualizar',body,{'headers':headers});
   }
   public getImg(body:any): Observable<any>{
     let headers = new HttpHeaders({
@@ -62,7 +62,7 @@ export class ServicioEstudiantesService {
     })
     return this.
     
-    http.patch('https://rzv75m7ksk.execute-api.us-east-2.amazonaws.com/students/cambiar-estado',body,{'headers':headers});
+    http.patch('https://pytq1gi31b.execute-api.us-east-2.amazonaws.com/students/cambiar-estado',body,{'headers':headers});
   }
 
 /*

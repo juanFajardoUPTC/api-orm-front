@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.userService.removeToken()
   }
   login(email:string,contrasena:string){
     if(!email || !contrasena){
@@ -28,19 +29,27 @@ export class LoginComponent implements OnInit {
         password: contrasena 
       });
       
-      this.userService.validateUser({
+      this.userService.validateUser(
+        {
+          body:{
         email: email,
         password: contrasena 
-      }).subscribe(res=>{
-        if(!res.token){
+      }
+    }
+      ).subscribe(res=>{
+
+        res = JSON.parse(res)
+        console.log('RES AUTH',res);
+        
+        if(!res.body){
           alert('El usuario no existe, intente de nuevo')
         }else{
-          this.setToken(res.token)
+          this.setToken(res.body.token)
           this.router.navigate(['home'])
         }
       })
       //Borrar cuando se implemente la api
-      this.router.navigate(['home'])
+      //this.router.navigate(['home'])
     }
     
   }

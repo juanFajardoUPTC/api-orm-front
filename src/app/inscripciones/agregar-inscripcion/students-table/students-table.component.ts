@@ -11,7 +11,7 @@ export class StudentsTableComponent implements OnInit {
 
   constructor(private servicioEstudiantes: ServicioEstudiantesService) { }
 
-  @Output() onSelect = new EventEmitter<any>();
+  @Output() onSelectEstudent = new EventEmitter<any>();
 
   ordenamiento = 'asc'
   columna = 'codigo'
@@ -20,7 +20,7 @@ export class StudentsTableComponent implements OnInit {
 
    ngOnInit(): void {
     
-this.servicioEstudiantes.getRequest().subscribe(data => {
+    this.servicioEstudiantes.getRequest().subscribe(data => {
       console.log('Data',data);
       this.res = data
     }, error => {
@@ -28,7 +28,7 @@ this.servicioEstudiantes.getRequest().subscribe(data => {
     });
   }
   selectStudent(student: any) {
-    this.onSelect.emit(student);
+    this.onSelectEstudent.emit(student);
     console.log (student.nombre)
     student.nombre
   }

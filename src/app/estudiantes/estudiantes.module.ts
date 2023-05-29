@@ -6,8 +6,7 @@ import { EstudiantesRoutingModule } from './estudiantes-routing.module';
 import { EstudiantesComponent } from './estudiantes.component';
 import { TablaEstudiantesComponent } from './tabla-estudiantes/tabla-estudiantes.component';
 import { AgregarEstudianteComponent } from './agregar-estudiante/agregar-estudiante.component';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ModificarEstudianteComponent } from './modificar-estudiante/modificar-estudiante.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 
@@ -19,7 +18,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     AgregarEstudianteComponent,
     ModificarEstudianteComponent
   ],
-  imports: [
+  imports: [ FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     EstudiantesRoutingModule,
     FormsModule,

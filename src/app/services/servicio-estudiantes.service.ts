@@ -15,14 +15,15 @@ export class ServicioEstudiantesService {
  
   constructor(private http:HttpClient) {  }
 
-  public getRequest(columna = 'codigo' , ordenamiento = 'asc' ,busqueda = ''): Observable<any>{
+  public getRequest(columna = 'codigo' , ordenamiento = 'asc' ,busquedaOne = '',busquedaThow = ''): Observable<any>{
     let queryParams = new HttpParams();
     queryParams = queryParams.append("columna",columna);
     queryParams = queryParams.append("ordenamiento",ordenamiento);
-    queryParams = queryParams.append("busqueda",busqueda);
-    return this.http.get('https://rzv75m7ksk.execute-api.us-east-2.amazonaws.com/students',{params:queryParams});
-    //return this.http.get('/estudiantes',{params:queryParams}); 
-    
+    queryParams = queryParams.append("busquedaOne",busquedaOne);
+    queryParams = queryParams.append("busquedaThow",busquedaThow);
+
+    return this.http.get('/estudiantes',{params:queryParams}); 
+    //return this.http.get('https://rzv75m7ksk.execute-api.us-east-2.amazonaws.com/students',{params:queryParams});
   }
   
 

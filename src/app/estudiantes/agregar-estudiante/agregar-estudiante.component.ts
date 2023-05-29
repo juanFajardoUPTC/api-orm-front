@@ -52,7 +52,6 @@ export class AgregarEstudianteComponent implements OnInit {
 
   onSubmit(estudianteForm: NgForm){
     estudianteForm.control.markAllAsTouched();
-
   }
   
   get currentEstudiante() {

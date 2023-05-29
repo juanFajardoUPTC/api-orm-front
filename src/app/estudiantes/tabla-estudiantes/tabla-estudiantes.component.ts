@@ -14,6 +14,8 @@ import { ToastrService } from 'ngx-toastr';
 
 
 export class TablaEstudiantesComponent implements OnInit {
+  isLoading = true;
+
   res: any = [];
   students: any[] = [];
   paginaActual = 1
@@ -52,8 +54,9 @@ export class TablaEstudiantesComponent implements OnInit {
   
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.servicioEstudiantes.getRequest(this.columna, this.ordenamiento, this.busqueda).subscribe(data => {
-      console.log('Data', data);
+      //console.log('Data', data);
       if(data['estudiantes'])
       this.res = data['estudiantes']
       else
@@ -76,15 +79,17 @@ export class TablaEstudiantesComponent implements OnInit {
     
         })
       }
+      this.isLoading = false;
       this.contarPaginas()
-
     }, error => {
+      
       console.log('ERROR', error);
     });
 
   }
-  cambiarPaginacion(key: string, event: any) {
 
+
+  cambiarPaginacion(key: string, event: any) {
     if (key == 'mostrar')
       this.itemsPerPage = Number(event)
 
@@ -95,22 +100,21 @@ export class TablaEstudiantesComponent implements OnInit {
       this.ordenamiento = event
       if (this.ordenamiento == 'Ascendente')
         this.ordenamiento = 'asc'
-        else
+      else
         this.ordenamiento = 'desc'
-
     }
 
     if (key == 'busqueda')
       this.busqueda = event
 
-
+      console.log("columna es:", this.columna ,"ordenamiento es:", this.ordenamiento, "busqueda es ",this.busqueda ), 
 
     this.servicioEstudiantes.getRequest(this.columna, this.ordenamiento, this.busqueda).subscribe(data => {
       console.log('Data', data);
-      if(data['estudiantes'])
-      this.res = data['estudiantes']
+      if (data['estudiantes'])
+        this.res = data['estudiantes']
       else
-      this.res = data
+        this.res = data
       this.contarPaginas()
 
     }, error => {

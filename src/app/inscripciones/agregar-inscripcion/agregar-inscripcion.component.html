@@ -1,8 +1,183 @@
 <body>
-    <main><br>
-      <div class="container">
+  <main><br>
+    <div class="container w-80 transparent-background my-20  rounded">
+      <form (ngSubmit)="onSubmit" class="row g-3 mt-3 text-center ">
+        <div class="col-md-6 text-center">
+          <h4>Información del Estudiante</h4>
+          <div class="row">
+            <div class="col">
+              <label for="codigoEstudiante form-control ">Código del Estudiante:</label>
+              <!-- <input type="number" name="codigoEstudiante" id="codigoEstudiante"  [(ngModel)]="codigoEstudiante"> -->
+              <input type="number" name="codigoEstudiante" id="codigoEstudiante" class="form-control input-codigo-estudiante" [(ngModel)]="codigoEstudiante">
+
+            </div>
+
+            <div class="col ">
+              <label for="nombreEstudiante">Apellido del Estudiante:</label>
+              <input type="text"  name="nombreEstudiante" class="form-control input-codigo-estudiante"  id="nombreEstudiante" [(ngModel)]="nombreEstudiante">
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-6 text-center">
+          <h4>Información de la asignatura</h4>
+          <div class="row">
+            <div class="col">
+              <label for="codigoMateria">Código de la Materia:</label>
+              <input type="number" name="codigoMateria"  class="form-control input-codigo-estudiante"  id="codigoMateria" [(ngModel)]="codigoMateria">
+            </div>
+            <div class="col">
+              <label for="nombreMateria">Nombre de la Materia:</label>
+              <input type="text" name="nombreMateria" class="form-control input-codigo-estudiante"  id="nombreMateria" [(ngModel)]="nombreMateria">
+            </div>
+          </div>
+        </div>
+        <div class="col-12 text-end">
+          <button type="submit" class="btn btn-primary btn-with-margin" (click)="search()">Buscar</button>
+        </div>
+      </form>
+    </div>
+
+
+    <div class=" row mx-4 ">
+    <!-- **************************************************************************************** -->
+    <div class="container mt-5 col-md-5 ">
         <h3 class="d-flex justify-content-center">Tabla de Estudiantes</h3>
-        <app-students-table (onSelect)="estudiante = $event"></app-students-table>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">Codigo</th>
+                <!-- <th scope="col">Imagen</th> -->
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Tipo de documento</th>
+                <th scope="col">Numero de documento</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Genero</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- <tr *ngFor="let student of res" (click)="selectStudent (student)"> -->
+              <!-- <tr *ngFor="let student of res" (click)="selectStudent (student)"> -->
+              <tr
+                *ngFor="let estudiante of res | paginate: {itemsPerPage:itemsPerPageEstudiantes, currentPage:paginaActualEstudiantes}; let i = index"
+                (click)="estudianteSelected(estudiante)">
+
+                <th scope="row">{{estudiante.codigo}}</th>
+                <!-- <td> 
+                  <div class="image-cropper">
+                  <img [src]="estudiante.pathPresigned?estudiante.pathPresigned:''" alt="" width="150" height="150">
+                </div>
+              </td>-->
+                <td>{{estudiante.nombre}}</td>
+                <td>{{estudiante.apellido}}</td>
+                <td>{{estudiante.tipo_documento}}</td>
+                <td>{{estudiante.numero_documento}}</td>
+                <td>{{estudiante.estado}}</td>
+                <td>{{estudiante.genero}}</td>
+            </tbody>
+          </table>
+        </div>
+        <!--  
+        <div class="pagination">
+          <div class="">Pagina {{paginaActualEstudiantes}} de {{totalPaginasEstudiantes}}</div>
+          <div class=" "><pagination-controls (pageChange)="paginaActualEstudiantes = $event"
+              [responsive]="true"></pagination-controls>
+          </div>
+        </div>-->
+        <div class="pagination">
+          <div class="">Página {{paginaActualEstudiantes}} de {{totalPaginasEstudiantes}}</div>
+          <div class=" ">
+            <pagination-controls (pageChange)="onEstudiantesPageChange($event)" [responsive]="true"></pagination-controls>
+          </div>
+        </div>
+
+        <div *ngIf="estudianteSeleccionado" class="selected-student transparent-background text-center rounded">
+          <h4>Estudiante seleccionado:</h4>
+          <div class="student-info">
+            <span>Código: {{estudianteSeleccionado.codigo}}</span>
+            <span>Nombre: {{estudianteSeleccionado.nombre}}</span>
+            <span>Apellido: {{estudianteSeleccionado.apellido}}</span>
+            <span>Tipo de documento: {{estudianteSeleccionado.tipoDocumento}}</span>
+            <span>Documento: {{estudianteSeleccionado.numeroDocumento}}</span>
+            <span>Genero: {{estudianteSeleccionado.genero}}</span>
+          </div>
+        </div>
+    </div>
+
+    <!-- ************************************************************************** -->
+ 
+
+    <div class="container mt-5 col-md-5   ">
+      <h3 class="d-flex justify-content-center">Tabla de Materias</h3>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Codigo</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Cupos</th>
+              <th scope="col">Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let materia of resMate | paginate: {itemsPerPage: itemsPerPageMaterias, currentPage: paginaActualMaterias}; let i = index "
+              (click)="materiaSelected(materia)">
+    
+              <th scope="row">{{materia.codigo}}</th>
+              <td>{{materia.nombre}}</td>
+              <td>{{materia.cupos}}</td>
+              <td>{{materia.estado}}</td>
+            </tr>
+          </tbody>
+        </table>
+    
+        <div class="pagination">
+          <div class="">Página {{paginaActualMaterias}} de {{totalPaginasMaterias}}</div>
+          <div class=" ">
+            <pagination-controls (pageChange)="paginaActualMaterias = $event" [responsive]="true"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    
+      <div *ngIf="materiaSeleccionada" class="selected-subject transparent-background text-center rounded">
+        <h4>Materia seleccionada:</h4>
+        <div class="subject-info">
+          <span>codigo: {{materiaSeleccionada.codigo}}</span>
+          <span>nombre: {{materiaSeleccionada.nombre}}</span>
+          <span>cupos: {{materiaSeleccionada.cupos}}</span>
+          <span>estado: {{materiaSeleccionada.estado}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="row text-center mt-5  ">
+      <div class="col-md-1"></div>
+        <div class="col-md-3 mb-5">
+          <div class="transparent-background rounded"  >
+            <label for="start">Fecha de Inscripción:</label>
+            <input type="date" id="start" name="trip-start" [value]="currentDate" min="2018-01-01" max=""(change)="onDateSelected($event)">
+          </div>
+        </div>
+        <div class="col-md-6"></div>
+
+      <div class="col-md-2">
+         <button type="button" class="btn btn-primary btn-with-margin" (click)="onButtonClick()">Agregar</button>
+      </div>
+    </div>
+    
+
+    </main>
+    </body>
+
+<!--
+          <div class="container">
+        <h3 class="d-flex justify-content-center">Tabla de Estudiantes</h3>
+        <app-students-table (onSelectEstudent)="estudiante = $event"></app-students-table>
   
         <div *ngIf="estudiante" class="selected-student">
           <h4>Estudiante seleccionado:</h4>
@@ -15,6 +190,9 @@
             <span>/{{estudiante.genero}}</span>
           </div>
         </div>
+
+
+
         <h3 class="d-flex justify-content-center">TTabla de Materias</h3>
         <app-subjects-table (onSelectSubject)="onSubjectSelected($event)"></app-subjects-table>
   
@@ -27,13 +205,10 @@
             <span>/{{selectedSubject.estado}}</span>
           </div>
         </div>
-        <div>
-          <label for="start">Fecha de Inscripción:</label>
-          <input type="date" id="start" name="trip-start" [value]="currentDate" min="2018-01-01" max=""
-            (change)="onDateSelected($event)">
-        </div>
-  
+
+
         <button type="button" class="btn btn-primary" (click)="onButtonClick()">Agregar</button>
       </div>
     </main>
   </body>
+   -->

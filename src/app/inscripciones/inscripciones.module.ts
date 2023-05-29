@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { InscripcionesRoutingModule } from './inscripciones-routing.module';
 import { InscripcionesComponent } from './inscripciones.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { TablaInscripcionesComponent } from './tabla-inscripciones/tabla-inscripciones.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AgregarInscripcionComponent } from './agregar-inscripcion/agregar-inscripcion.component';
@@ -21,6 +21,7 @@ import { SubjectsTableComponent } from './agregar-inscripcion/subjects-table/sub
   imports: [
     CommonModule,
     InscripcionesRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule
   ]

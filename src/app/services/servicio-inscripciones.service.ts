@@ -21,5 +21,7 @@ export class ServicioInscripcionesService {
       'content-type': 'application/json',
     })
     return this.http.post('/inscripciones/agregar', body, { 'headers': headers });
+    //return aws
   }
+
 }

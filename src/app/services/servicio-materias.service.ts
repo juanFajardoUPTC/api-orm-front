@@ -10,12 +10,14 @@ export class ServicioMateriasService {
 
   constructor(private http: HttpClient) { }
 
-  public getRequest(columna = 'codigo' , ordenamiento = 'asc' ,busqueda = ''): Observable<any>{
+  public getRequest(columna = 'codigo' , ordenamiento = 'asc' ,busquedaOne = '',busquedaThow = ''): Observable<any>{
     let queryParams = new HttpParams();
     queryParams = queryParams.append("columna",columna);
     queryParams = queryParams.append("ordenamiento",ordenamiento);
-    queryParams = queryParams.append("busqueda",busqueda);
-    return this.http.get('https://xxybazulyl.execute-api.us-east-2.amazonaws.com/materias',{params:queryParams}); 
+    queryParams = queryParams.append("busquedaOne",busquedaOne);
+    queryParams = queryParams.append("busquedaThow",busquedaThow);
+    //return this.http.get('https://xxybazulyl.execute-api.us-east-2.amazonaws.com/materias',{params:queryParams}); 
+    return this.http.get('/materias',{params:queryParams});
   }
 
   public postRequest(body: any): Observable<any> {

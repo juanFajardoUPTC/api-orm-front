@@ -65,7 +65,7 @@
                 <th scope="col">codigo_materia</th>
                 <th scope="col">fecha_inscripcion</th>
                 <th scope="col">Editar</th>
-                <th scope="col">Inabilitar</th>
+                <!-- <th scope="col">Inabilitar</th> -->
               </tr>
             </thead>
             <tbody>
@@ -74,8 +74,8 @@
                 <td>{{estudiante.codigo_estudiante}}</td>
                 <td>{{estudiante.codigo_materia}}</td>
                 <td>{{estudiante.fecha_inscripcion}}</td>
-                <td><button type="button" class="btn btn-primary">Editar</button></td>
-                <td><button type="button" class="btn btn-danger">Inabilitar</button></td>
+                <td><button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#modificar-estudiante" (click)="selectStudent(estudiante);">Editar</button> 
+                <!-- <td><button type="button" class="btn btn-danger">Inabilitar</button></td> -->
               </tr>
             </tbody>
           </table>
@@ -91,3 +91,75 @@
     </div>
   </div>
 </body>
+
+<!-- Modal -->
+<div class="modal fade" id="modificar-estudiante" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Actualizar Asignatura</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+
+    
+    <div class="modal-body">
+      <form [formGroup]="fmRcurso" (submit)="onSubmit()" id ="frmRcursoOne" >
+        <fieldset>
+          <!-- <legend>Disabled fieldset example</legend> -->
+          <div class="mb-3">
+            <label for="id_inscripcion" class="form-label">Identificaicon de Inscripcion</label>
+            <input type="text" formControlName="id_inscripcion"  id="id_inscripcion" class="form-control" readonly>
+
+            <div class="alert alert-danger" *ngIf="fmRcurso.controls['id_inscripcion'].invalid && fmRcurso.controls['id_inscripcion'].touched">
+              <div *ngIf="fmRcurso.controls['id_inscripcion'].errors?.['required']">El codigo es obligatoio </div>
+              <div *ngIf="fmRcurso.controls['id_inscripcion'].errors?.['minlength']">Debe tener alamenos 5 numeros</div>  
+            </div>
+
+          </div>
+
+
+          <div class="mb-3">
+            <label for="codigo_estudiante" class="form-label">Codigo de Estudiante</label>
+            <input type="number" formControlName="codigo_estudiante"  id="codigo_estudiante" class="form-control" >
+
+            <div class="alert alert-danger" *ngIf="fmRcurso.controls['codigo_estudiante'].invalid && fmRcurso.controls['codigo_estudiante'].touched">
+              <div *ngIf="fmRcurso.controls['codigo_estudiante'].errors?.['required']">El codigo es obligatoio </div>
+              <div *ngIf="fmRcurso.controls['codigo_estudiante'].errors?.['minlength']">Debe tener alamenos 5 numeros</div>  
+            </div>
+
+          </div>
+
+
+          <div class="mb-3">
+            <label for="codigo_materia" class="form-label">Codigo de asignatura</label>
+            <input type="number"  id="codigo_materia" formControlName="codigo_materia"  class="form-control" placeholder="">
+            <div class="alert alert-danger" *ngIf="fmRcurso.controls['codigo_materia'].invalid && fmRcurso.controls['codigo_materia'].touched">
+              <div *ngIf="fmRcurso.controls['codigo_materia'].errors?.['required']">los cupos son obligatoio </div>
+              <div *ngIf="fmRcurso.controls['codigo_materia'].errors?.['pattern']">No se aceptan letras</div>  
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="fecha_inscripcion" class="form-label">fecha de Inscripcion</label>
+            <input type="text"  id="fecha_inscripcion" formControlName="fecha_inscripcion"  class="form-control" placeholder="EJEMPLO : 2023-11-24T00:00:00.000Z" >
+            <div class="alert alert-danger" *ngIf="fmRcurso.controls['fecha_inscripcion'].invalid && fmRcurso.controls['fecha_inscripcion'].touched">
+              <div *ngIf="fmRcurso.controls['fecha_inscripcion'].errors?.['required']">los cupos son obligatoio </div>
+              <div *ngIf="fmRcurso.controls['fecha_inscripcion'].errors?.['pattern']">No se aceptan letras</div>  
+            </div>
+          </div>
+
+         
+         
+        </fieldset>
+      </form>
+      {{fmRcurso.status}}
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cerrar</button>
+      <button type="submit" form ="frmRcursoOne" class="btn btn-primary" [disabled] ="!fmRcurso.valid">Guardar </button>
+    </div>
+  </div>
+</div>
+</div>

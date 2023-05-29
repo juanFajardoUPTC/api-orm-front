@@ -76,8 +76,25 @@
                 <td>{{estudiante.cupos}}</td>
                 <td>{{estudiante.estado}}</td>
                 <!-- <td><button type="button" class="btn btn-primary ">Editar</button></td> -->
-                <td><button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#modificar-estudiante">Editar</button> 
-                <td><button type="button" class="btn btn-danger">Inabilitar</button></td>
+                <td><button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#modificar-estudiante" (click)="selectStudent(estudiante);">Editar</button> 
+                  <!-- <td><button type="button" class="btn btn-danger" (click)="disable_state(estudiante)">Inabilitar</button></td> -->
+                  
+                  <!-- <button type="button" class="btn" [ngClass]="{ 
+                    'btn-danger': !isEstudianteHabilitado(estudiante),
+                    'btn-success': isEstudianteHabilitado(estudiante)
+                  }" (click)="disable_state(estudiante)">
+                    {{ isEstudianteHabilitado(estudiante) ? 'Inhabilitar' : 'Habilitar' }}
+                  </button>-->
+
+                  <td>
+                    <button type="button" class="btn" [ngClass]="{
+                      'btn-success': isEstudianteHabilitado(estudiante),
+                      'btn-danger': !isEstudianteHabilitado(estudiante)
+                    }" (click)="disable_state(estudiante)">
+                      {{ isEstudianteHabilitado(estudiante) ? 'Habilitado' : 'Inhabilitado' }}
+                    </button>
+                  </td>
+                  
               </tr>
             </tbody>
           </table>
@@ -95,87 +112,78 @@
   </div>
 </body>
 
+ <!-- Modal -->
+ <div class="modal fade" id="modificar-estudiante" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+ aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+   <div class="modal-content">
+     <div class="modal-header">
+       <h5 class="modal-title" id="exampleModalLabel">Actualizar Asignatura</h5>
+       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+     </div>
 
-  <!-- 
-  <div class="modal fade" id="modificar-estudiante" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Actualizar Estudiante</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
+     
+     <div class="modal-body">
+       <form [formGroup]="fmRcurso" (submit)="onSubmit()" id ="frmRcursoOne" >
+         <fieldset>
+           <!-- <legend>Disabled fieldset example</legend> -->
+           <div class="mb-3">
+             <label for="codigo" class="form-label">Codigo de asignatura</label>
+             <input type="text" formControlName="codigo"  id="codigo" class="form-control" readonly>
+
+             <div class="alert alert-danger" *ngIf="fmRcurso.controls['codigo'].invalid && fmRcurso.controls['codigo'].touched">
+               <div *ngIf="fmRcurso.controls['codigo'].errors?.['required']">El codigo es obligatoio </div>
+               <div *ngIf="fmRcurso.controls['codigo'].errors?.['minlength']">Debe tener alamenos 5 numeros</div>  
+             </div>
+
+           </div>
+
+           <div class="mb-3">
+             <label for="nombre" class="form-label">Nombre</label>
+             <input type="text"  id="nombre" formControlName="nombre"   class="form-control"  placeholder="">  <!-- placeholder="" poner por definido texto -->
+
+             <div class="alert alert-danger" *ngIf="fmRcurso.controls['nombre'].invalid && fmRcurso.controls['nombre'].touched">
+               <div *ngIf="fmRcurso.controls['nombre'].errors?.['required']">El nombre es obligatoio </div>
+               <div *ngIf="fmRcurso.controls['nombre'].errors?.['pattern']">No se aceptan numeros</div>  
+             </div>
+
+             
+           </div>
+
+           <div class="mb-3">
+             <label for="cupos" class="form-label">Cupos</label>
+             <input type="number"  id="cupos" formControlName="cupos"  class="form-control" placeholder="Disabled input">
+             <div class="alert alert-danger" *ngIf="fmRcurso.controls['cupos'].invalid && fmRcurso.controls['cupos'].touched">
+               <div *ngIf="fmRcurso.controls['cupos'].errors?.['required']">los cupos son obligatoio </div>
+               <div *ngIf="fmRcurso.controls['cupos'].errors?.['pattern']">No se aceptan letras</div>  
+             </div>
+           </div>
+
 
         
-        <div class="modal-body">
-          <form [(submit)="onSubmit()" id ="frmRcursoOne" >
-           
-          <fieldset>
-              <div class="mb-3">
-                <label for="codigo" class="form-label">Codigo estudiantil</label>
-                <input type="text" formControlName="codigo"  id="codigo" class="form-control" readonly>
 
-              </div>
+           <div class="mb-3">
+             <label for="estado" class="form-label">Estado</label>
+             <select id="estado"  formControlName="estado"  class="form-select">
+               <option value="A">Activa</option>
+               <option value="I">Inabilitada</option>
+             </select>
+             <div class="alert alert-danger" *ngIf="fmRcurso.controls['estado'].invalid && fmRcurso.controls['estado'].touched">
+               <div *ngIf="fmRcurso.controls['estado'].errors?.['required']">Estado obligatoio </div>
+             </div>
+           </div>
+          
+         </fieldset>
+       </form>
+       {{fmRcurso.status}}
 
-              <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text"  id="nombre" formControlName="nombre"  class="form-control" placeholder="Disabled input">
+     </div>
+     <div class="modal-footer">
+       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cerrar</button>
+       <button type="submit" form ="frmRcursoOne" class="btn btn-primary" [disabled] ="!fmRcurso.valid">Guardar </button>
+     </div>
+   </div>
+ </div>
+</div>
 
-                
-              </div>
-
-              <div class="mb-3">
-                <label for="apellido" class="form-label">Apellido</label>
-                <input type="text"  id="apellido" formControlName="apellido"  class="form-control" placeholder="Disabled input">
-              </div>
-
-              <div class="mb-3">
-                <label for="genero" class="form-label">Genero</label>
-                <select id="genero" formControlName="genero"   class="form-select">
-                  <option value="F">Femenino</option>
-                  <option value="M">Masculino</option>
-                  <option value="o">Otro</option>
-                  <option value="p">Prefiero no decirlo</option>
-                </select>
-              </div>
-
-              <div class="mb-3">
-                <label for="tipo_documento" class="form-label">Tipo de Documento</label>
-                <select id="tipo_documento"  formControlName="tipo_documento" class="form-select">
-                  <option value="CC">Cédula de Ciudadanía</option>
-                  <option value="TI">Tarjeta de Identidad</option>
-                  <option value="CE">Cédula de Extranjería</option>
-                </select>
-              </div>
-
-              <div class="mb-3">
-                <label for="numero_documento" class="form-label">Numero de Docuemento</label>
-                <input type="text"  formControlName="numero_documento"  id="numero_documento" class="form-control" placeholder="Disabled input">
-                
-              
-
-              </div>
-
-              <div class="mb-3">
-                <label for="estado" class="form-label">Estado</label>
-                <select id="estado"  formControlName="estado"  class="form-select">
-                  <option value="A">Estudiante Activo</option>
-                  <option value="R">Estudiante Retirado</option>
-                  <option value="E">Estudiante Egresado</option>
-                  <option value="S">Estudiante Suspendido</option>
-                </select>
-              </div>
-             
-            </fieldset>
-          </form>
-  
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cerrar</button>
-          <button type="submit" form ="frmRcursoOne" class="btn btn-primary">Guardar </button>
-        </div>
-      </div>
-    </div>
-  </div>
--->
 

@@ -180,13 +180,13 @@ export class TablaEstudiantesComponent implements OnInit {
   }
 
   updateStudent() {
-   this.servicioEstudiantes.putRequest(this.model1) .subscribe(
+   this.servicioEstudiantes.putRequest(this.model1).subscribe(
       (      respuesta: any) => {
         this.toastr.success(`El estudiante ${this.model1.nombre} se actualizó correctamente`, 'Estudiante actualizado');
         console.log(respuesta);
       },
       error => {
-        this.toastr.success(`No se Logro Actualizar el estudiante ${this.model1.nombre}`,'Error al Actualizar');
+        this.toastr.error(`No se Logro Actualizar el estudiante ${this.model1.nombre}`,'Error al Actualizar');
         console.error(error);
       }
     );

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicioInscripcionesService } from 'src/app/services/servicio-inscripciones.service';
+import { FormGroup ,FormBuilder, Validators} from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { inscripcion } from '../agregar-inscripcion/inscripcion.model';
 
 @Component({
   selector: 'app-tabla-inscripciones',
@@ -12,14 +15,27 @@ export class TablaInscripcionesComponent implements OnInit {
   paginaActual = 1
   itemsPerPage = 5
   totalPaginas = 1
+  fmRcurso: FormGroup;
+  model1: any
 
   ordenamiento = 'asc'
   columna = 'id_inscripcion'
   busqueda = ''
+  selected_student:any;
 
 
+  constructor(private servicioEstudiantes: ServicioInscripcionesService,
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService
+    ) { 
+      this.fmRcurso = this.formBuilder.group({
+        id_inscripcion: ['', [Validators.required, Validators.minLength(5)]],
+        codigo_estudiante:['',[Validators.required,Validators.minLength(5)]],
+        codigo_materia:['',[Validators.required,Validators.minLength(5)]],
+        fecha_inscripcion:['',[Validators.required]],
+      })
 
-  constructor(private servicioEstudiantes: ServicioInscripcionesService) { }
+    }
 
   ngOnInit(): void {
 
@@ -73,6 +89,7 @@ export class TablaInscripcionesComponent implements OnInit {
     });
 
     this.contarPaginas()
+
   }
 
   llenarLista() {
@@ -99,6 +116,45 @@ export class TablaInscripcionesComponent implements OnInit {
 
     }
   }
+
+  onSubmit(){
+    console.log("se carga de datos")
+     this.model1 = new inscripcion (
+      this.fmRcurso.value.id_inscripcion,
+       this.fmRcurso.value.codigo_estudiante, 
+       this.fmRcurso.value.codigo_materia, 
+       this.fmRcurso.value.fecha_inscripcion); 
+       this.updateStudent()
+   }
+
+   
+   selectStudent(student: any) {
+    this.selected_student = student;
+    this.fmRcurso.setValue({
+      id_inscripcion: this.selected_student.id_inscripcion,
+      codigo_estudiante: this.selected_student.codigo_estudiante,
+      codigo_materia: this.selected_student.codigo_materia,
+      fecha_inscripcion: this.selected_student.fecha_inscripcion,
+      //path:this.selected_student.path,
+    });
+  }
+
+
+   
+   updateStudent() {
+    this.servicioEstudiantes.putRequest(this.model1) .subscribe(
+       (      respuesta: any) => {
+         this.toastr.success(`Asignatura ${this.model1.nombre} se actualizó correctamente`, ' Asignatura actualizado');
+         console.log(respuesta);
+       },
+       error => {
+         this.toastr.error(`No se Logro Actualizar la asignatura ${this.model1.nombre}`,'Error al Actualizar');
+         console.error(error);
+       }
+     );
+     console.log(this.model1);
+   }
+
 
 }
 

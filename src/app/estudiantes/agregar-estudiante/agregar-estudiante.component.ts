@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Estudiante } from '../estudiante.model';
 import { NgForm } from '@angular/forms';
-import { ServicioEstudiantesService } from 'src/app/services/servicio-estudiantes.service';
+import { ServicioEstudiantesService} from 'src/app/services/servicio-estudiantes.service';
 import { ToastrService } from 'ngx-toastr';
 
 

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { inscripcion } from '../agregar-inscripcion/inscripcion.model';
 import { ServicioEstudiantesService } from 'src/app/services/servicio-estudiantes.service';
 import { ServicioMateriasService } from 'src/app/services/servicio-materias.service';
+import { ServicioInscripcionesService} from 'src/app/services/servicio-inscripciones.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -39,11 +42,14 @@ export class AgregarInscripcionComponent implements OnInit {
   columna = 'codigo'
   busqueda = ''
 
-
+  model = new inscripcion(11,2023, 2, "");
 
   currentDate : string= new Date().toLocaleDateString('es-ES', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-').split("-").reverse().join("-");
 
-  constructor(private servicioEstudiantes: ServicioEstudiantesService,  private servicioMaterias: ServicioMateriasService) {
+  constructor(private servicioEstudiantes: ServicioEstudiantesService, 
+     private servicioMaterias: ServicioMateriasService,
+     private ServicioInscripciones: ServicioInscripcionesService,
+     private toastr: ToastrService) {
     this.selectedDate = this.currentDate;
     
   }
@@ -174,6 +180,26 @@ onMateriasPageChange(event: number) {
   this.paginaActualMaterias = event;
 }
 
+
+
+addSInscrip() {
+  this.model.codigo_estudiante =  this.estudianteSeleccionado.codigo,
+  this.model.codigo_materia = this.materiaSeleccionada.codigo,
+  this.model.fecha_inscripcion =this.selectedDate,
+  this.ServicioInscripciones.postRequest(this.model).subscribe(
+    ( respuesta: any) => {
+      this.toastr.success(' inscripcion realizada','Registro Correcto');
+      console.log(respuesta);
+     
+    },
+    error => {
+      this.toastr.error('Error en la inscripcion','Error de Registro');
+      console.error(error);
+      
+    }
+  );
+  console.log(this.model);
+}
 
 
 

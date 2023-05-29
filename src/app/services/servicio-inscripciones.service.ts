@@ -16,7 +16,9 @@ export class ServicioInscripcionesService {
     return this.http.get('/inscripciones',{params:queryParams}); 
   }
 
+
   public postRequest(body: any): Observable<any> {
+    console.log(body)
     let headers = new HttpHeaders({
       'content-type': 'application/json',
     })
@@ -24,4 +26,22 @@ export class ServicioInscripcionesService {
     //return aws
   }
 
+  public putRequest(body:any): Observable<any>{
+    console.log("a actualizar eon:"  ,body)
+
+    let headers = new HttpHeaders({
+      'content-type': 'application/json',
+    })
+  return this.http.put('/inscripciones/actualizar',body,{'headers':headers});
+  }
+
+  public patchRequest(body:any): Observable<any>{
+    let headers = new HttpHeaders({
+      'content-type': 'application/json',
+    })
+    return this.http.patch('/inscripciones/cambiar-fecha',body,{'headers':headers});
+
+  }
+
 }
+

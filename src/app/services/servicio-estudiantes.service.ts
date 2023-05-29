@@ -31,15 +31,15 @@ export class ServicioEstudiantesService {
     let headers = new HttpHeaders({
       'content-type': 'application/json',
     })
-    return this.http.post('https://rzv75m7ksk.execute-api.us-east-2.amazonaws.com/students/agregar',body,{'headers':headers}); 
-   // return this.http.post('/estudiantes/agregar',body,{'headers':headers});
+    return this.http.post('/estudiantes/agregar',body,{'headers':headers});
   }
 
   public putRequest(body:any): Observable<any>{
+    console.log("datos con los que va a actualizar estu:    " , body)
     let headers = new HttpHeaders({
       'content-type': 'application/json',
     })
-    return this.http.put(' https://rzv75m7ksk.execute-api.us-east-2.amazonaws.com/students/actualizar',body,{'headers':headers});
+    return this.http.put('estudiantes/actualizar',body,{'headers':headers});
   }
   public getImg(body:any): Observable<any>{
     let headers = new HttpHeaders({
@@ -61,9 +61,7 @@ export class ServicioEstudiantesService {
     let headers = new HttpHeaders({
       'content-type': 'application/json',
     })
-    return this.
-    
-    http.patch('https://rzv75m7ksk.execute-api.us-east-2.amazonaws.com/students/cambiar-estado',body,{'headers':headers});
+    return this. http.patch('estudiantes/cambiar-estado',body,{'headers':headers});
   }
 
 /*

@@ -24,6 +24,7 @@ export class ServicioMateriasService {
     let headers = new HttpHeaders({
       'content-type': 'application/json',
     })
+    return this.http.post('materias/agregar', body, { 'headers': headers });
     return this.http.post('https://xxybazulyl.execute-api.us-east-2.amazonaws.com/materias/agregar', body, { 'headers': headers });
   }
 
@@ -31,16 +32,16 @@ export class ServicioMateriasService {
     let headers = new HttpHeaders({
       'content-type': 'application/json',
     })
-    return this.http.put('https://xxybazulyl.execute-api.us-east-2.amazonaws.com/materias/actualizar',body,{'headers':headers});
+  return this.http.put('/materias/actualizar',body,{'headers':headers});
+   // return this.http.put('https://xxybazulyl.execute-api.us-east-2.amazonaws.com/materias/actualizar',body,{'headers':headers});
   }
 
   public patchRequest(body:any): Observable<any>{
     let headers = new HttpHeaders({
       'content-type': 'application/json',
     })
-    return this.
-    
-    http.patch('https://xxybazulyl.execute-api.us-east-2.amazonaws.com/materias/cambiar-estado',body,{'headers':headers});
+    return this.http.patch('/materias/cambiar-estado',body,{'headers':headers});
+    //return this.http.patch('https://xxybazulyl.execute-api.us-east-2.amazonaws.com/materias/cambiar-estado',body,{'headers':headers});
   }
 
 
